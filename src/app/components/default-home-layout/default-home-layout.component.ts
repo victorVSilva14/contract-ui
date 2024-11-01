@@ -15,7 +15,8 @@ import { MatListModule } from '@angular/material/list';
     BudgetTableComponent,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    BudgetTableComponent
   ],
   templateUrl: './default-home-layout.component.html',
   styleUrl: './default-home-layout.component.scss'

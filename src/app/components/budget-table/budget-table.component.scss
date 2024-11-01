@@ -2,17 +2,33 @@
 
 :host {
     display: block; // Para garantir que o host ocupa o espaço necessário
-    width: 90%;
+    width: 100%;
     margin: 0 auto; // Centraliza a tabela
-    position: relative; // Para facilitar o posicionamento da borda
 }
 
 table {
     width: 100%; 
-    background-color: $dark-secondary-color; 
-    color: $dark-text-color;
-    
-    border-radius: 8px; // Bordas arredondadas da tabela
-    border-collapse: collapse;
+    background-color: $light-primary-color; 
 
+    th, td {
+        color: black;
+    }
+}
+
+.demo-table {
+    width: 100%;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+    border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+    font-weight: bold;
 }
