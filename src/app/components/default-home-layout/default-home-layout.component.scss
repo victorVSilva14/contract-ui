@@ -1,50 +1,72 @@
 @import "../../../styles/variables.scss";
 
+.sidenav-container {
+    height: 100vh;
+}
+
+mat-sidenav-content {
+    height: 100%; // Garante que o conteúdo ocupe 100% da altura
+}
+
 main {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    height: 100%;
-
+    height: calc(100vh - 64px);
+    
     section {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start; // Alinha itens ao topo
         color: $dark-text-color;
-        height: 100%;
-    }
-
-    .border-text {
-        border-left: 4px solid $dark-secondary-text-color;
-        padding-left: 15px;
+        height: 100%; // Alinha a seção à altura disponível
     }
 
     .main-section {
-        gap: 8px;
+        align-items: flex-start;
         flex-grow: 1;
+        padding: 16px; // Espaçamento ao redor da seção
         background-color: $dark-primary-color;
-    }
+        overflow: hidden; // Oculta qualquer conteúdo que ultrapasse a seção
 
-    .profile-section {
-        flex-grow: 0.25;
-        background-color: $dark-secondary-color;
-        flex-direction: column;
-
-        h2 {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 8px;
+        h2.main-text {
+            margin: 16px 0; // Espaçamento em cima e embaixo do título
+            border-left: 4px solid $dark-purple-color; // Borda esquerda
+            padding-left: 15px; // Espaçamento interno à esquerda
+            margin-left: 3%;
+            color: $dark-text-color; // Cor do texto
+            text-align: left; // Alinha o texto à esquerda
         }
 
-        img {
-            width: 120px; 
-            height: 120px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            margin-bottom: 8px; 
-            background-color: $dark-primary-color;
+        // Estilização do contêiner da tabela
+        div {
+            max-height: calc(100% - 50px); // Limita a altura do contêiner da tabela
+            overflow: auto; // Adiciona uma barra de rolagem se necessário
+            padding: 10px; // Padding interno
+        }
+    }
+}
+
+@media (max-width: 1024px) { // large
+    main {
+        flex-direction: column;
+        height: calc(100vh - 64px);
+
+        .main-section {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 768px) { // mobile
+    main {
+        flex-direction: column; 
+        height: calc(100vh - 56px);
+
+        .main-section {
+            width: 100%; 
         }
     }
 }

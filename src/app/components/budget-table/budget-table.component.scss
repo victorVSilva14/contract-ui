@@ -1,0 +1,18 @@
+@import "../../../styles/variables.scss";
+
+:host {
+    display: block; // Para garantir que o host ocupa o espaço necessário
+    width: 90%;
+    margin: 0 auto; // Centraliza a tabela
+    position: relative; // Para facilitar o posicionamento da borda
+}
+
+table {
+    width: 100%; 
+    background-color: $dark-secondary-color; 
+    color: $dark-text-color;
+    
+    border-radius: 8px; // Bordas arredondadas da tabela
+    border-collapse: collapse;
+
+}

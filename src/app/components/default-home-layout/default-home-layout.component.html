@@ -1,9 +1,21 @@
-<main>
-    <section class="main-section">
-        <h2 class="border-text">{{ title }}</h2>
-    </section>
-    <section class="profile-section">
-        <h2>Perfil</h2>
-        <img src="/assets/jpg/profile.jpg"/>
-    </section>
-</main>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile">
+        <mat-list>
+            <mat-list-item>Item 1</mat-list-item>
+            <mat-list-item>Item 2</mat-list-item>
+            <mat-list-item>Item 3</mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <span>{{ title }}</span>
+        </mat-toolbar>
+        <main>
+            <section class="main-section">
+                <h2 class="main-text">Orçamentos</h2>
+                <!-- Aqui você pode adicionar seu conteúdo principal -->
+            </section>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
