@@ -1,42 +1,107 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import { MatTableModule} from '@angular/material/table';
-import {SelectionModel} from '@angular/cdk/collections';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import {FormGroup, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {JsonPipe} from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Budget } from '../../models/budget.resource';
+import { DialogOrderInformationComponent } from '../dialogs/dialog-order-information/dialog-order-information.component';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+const ELEMENT_DATA: Budget[] = [
+  { id: 1, cliente: 'Victor', vlTotal: 1.0079, dtEntrega: new Date(), status: 'Montagem', type: 'client' },
+  { id: 2, cliente: 'Adryan', vlTotal: 4.0026, dtEntrega: new Date(), status: 'Importado', type: 'client' },
+  { id: 3, cliente: 'Matheus', vlTotal: 6.941, dtEntrega: new Date(), status: 'Concluído', type: 'other' },
+  { id: 4, cliente: 'Matheus', vlTotal: 6.951, dtEntrega: new Date(), status: 'Saída', type: 'other' },
+  { id: 5, cliente: 'Matheus', vlTotal: 6.991, dtEntrega: new Date(), status: 'Recolher', type: 'other' }
 ];
 
 @Component({
   selector: 'app-budget-table',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatTableModule, 
-    MatPaginatorModule
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatTabsModule,
+    MatIconModule,
+    MatFormFieldModule, 
+    MatDatepickerModule, 
+    MatTooltipModule,
+    MatDialogModule,
+    FormsModule, 
+    ReactiveFormsModule, 
+    DialogOrderInformationComponent,
+    JsonPipe,
+    DatePipe
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './budget-table.component.html',
   styleUrl: './budget-table.component.scss'
 })
 export class BudgetTableComponent {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['id', 'cliente', 'vlTotal', 'entrega', 'status', 'actions'];
   dataSource = ELEMENT_DATA;
-  clickedRows = new Set<PeriodicElement>();
+  filteredData = ELEMENT_DATA;
+  clickedRows = new Set<Budget>();
+  activeTab = 'Todos';
+  searchTerm: string = '';
+
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
+
+  constructor(private dialog: MatDialog) {}
+
+  filterData() {
+    this.filteredData = this.dataSource.filter(element => {
+      const matchesType = this.activeTab === 'Todos' || element.type === this.activeTab;
+      const matchesSearchTerm = element.cliente.toLowerCase().includes(this.searchTerm.toLowerCase());
+      return matchesType && matchesSearchTerm;
+    });
+  }
+
+  onTabChange(tab: string) {
+    this.activeTab = tab;
+    this.filterData();
+  }
+
+  applyFilter(value: string) {
+    this.searchTerm = value;
+    this.filterData();
+  }
+
+  getStatusClass(status: string) {
+    switch (status) {
+      case 'Concluído': 
+        return 'status-green';
+      case 'Importado': 
+        return 'status-gray';
+      case 'Montagem': 
+        return 'status-yellow';
+      case 'Saída': 
+        return 'status-orange';
+      case 'Recolher': 
+        return 'status-red';
+      default:
+        return '';
+    }
+  }
+
+  openDialog(order?: Budget): void {
+    const dialogRef = this.dialog.open(DialogOrderInformationComponent, {
+      data: order,
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Optionally handle the result here
+    });
+  }
 }

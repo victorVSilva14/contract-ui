@@ -5,6 +5,7 @@ import { BudgetTableComponent } from '../budget-table/budget-table.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-default-home-layout',
@@ -16,7 +17,7 @@ import { MatListModule } from '@angular/material/list';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    BudgetTableComponent
+    MatIconModule
   ],
   templateUrl: './default-home-layout.component.html',
   styleUrl: './default-home-layout.component.scss'

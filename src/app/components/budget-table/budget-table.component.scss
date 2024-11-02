@@ -12,7 +12,62 @@ table {
 
     th, td {
         color: black;
+        text-align: center;
     }
+
+    .status-green {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background-color: rgba(0, 255, 0, 0.2); 
+        color: green; 
+        font-weight: bold;
+    }
+    .status-gray {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background-color: rgba(128, 128, 128, 0.2);
+        color: gray; 
+        font-weight: bold;
+    }
+    
+    .status-yellow {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background-color: rgba(226, 226, 13, 0.2); 
+        color: rgb(148, 148, 1); 
+        font-weight: bold;
+    }
+    
+    .status-orange {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background-color: rgba(255, 165, 0, 0.2); 
+        color: rgb(224, 146, 0); 
+        font-weight: bold;
+    }
+    
+    .status-red {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background-color: rgba(255, 0, 0, 0.2); 
+        color: red; 
+        font-weight: bold;
+    }
+
+    .client-cell {
+        color: purple;
+    }
+
+    mat-icon {
+        &:hover {
+            color: darkviolet;
+        }
+    }    
 }
 
 .demo-table {
