@@ -37,7 +37,6 @@ const ELEMENT_DATA: Budget[] = [
     MatDialogModule,
     FormsModule, 
     ReactiveFormsModule, 
-    DialogOrderInformationComponent,
     JsonPipe,
     DatePipe
   ],

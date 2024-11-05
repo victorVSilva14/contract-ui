@@ -87,3 +87,46 @@ table {
 .demo-row-is-clicked {
     font-weight: bold;
 }
+
+
+// Responsividade para telas pequenas (móbile)
+@media screen and (max-width: 600px) {
+    table {
+      font-size: 12px; /* Reduz o tamanho da fonte */
+    }
+  
+    th, td {
+      padding: 8px; /* Ajusta o padding para telas pequenas */
+      min-width: 80px; /* Reduz a largura mínima das células */
+    }
+  
+    .mat-column-id, .mat-column-cliente, .mat-column-vlTotal, .mat-column-entrega, .mat-column-status, .mat-column-actions {
+      display: block; /* Faz as colunas ficarem empilhadas */
+      width: 100%; /* Coloca as colunas uma abaixo da outra */
+    }
+  
+    .mat-column-id {
+      margin-top: 8px; /* Adiciona um espaçamento acima das células */
+    }
+  
+    .mat-column-actions {
+      text-align: center;
+    }
+  }
+  
+  // Responsividade para tablets (entre 600px e 1024px)
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    table {
+      font-size: 13px;
+    }
+  
+    th, td {
+      padding: 10px;
+    }
+  
+    .mat-column-id, .mat-column-cliente, .mat-column-vlTotal, .mat-column-entrega, .mat-column-status, .mat-column-actions {
+      display: inline-block;
+      width: 16%; /* Distribui as colunas em tela maior que mobile */
+    }
+}
+  

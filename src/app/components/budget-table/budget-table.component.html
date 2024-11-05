@@ -19,62 +19,63 @@
 -->
 
 <!--<mat-tab-group (selectedTabChange)="onTabChange($event.tab.textLabel.toLowerCase())">-->
-<mat-tab-group>
-  <mat-tab label="Todos"></mat-tab>
-  <mat-tab label="Importados"></mat-tab>
-  <mat-tab label="Montagem"></mat-tab>
-  <mat-tab label="Saída"></mat-tab>
-  <mat-tab label="Recolher"></mat-tab>
-  <mat-tab label="Concluídos"></mat-tab>
-</mat-tab-group>
-<table mat-table [dataSource]="filteredBudgetList" class="mat-elevation-z8 demo-table">
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Código</th>
-    <td mat-cell *matCellDef="let element">{{element.id}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="cliente">
-    <th mat-header-cell *matHeaderCellDef>Cliente</th>
-    <td mat-cell *matCellDef="let element" class="client-cell">{{element.cliente}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="vlTotal">
-    <th mat-header-cell *matHeaderCellDef>Valor total</th>
-    <td mat-cell *matCellDef="let element">{{element.vlTotal}}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="entrega">
-    <th mat-header-cell *matHeaderCellDef>Entrega</th>
-    <td mat-cell *matCellDef="let element">{{ element.dtEntrega | date: 'dd/MM/yyyy HH:mm' }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>Status</th>
-    <td mat-cell *matCellDef="let element">
-      <span [ngClass]="getStatusClass(element.status)">
-        {{ element.status }}
-      </span>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef>Ações</th>
-    <td mat-cell *matCellDef="let element">
-      <mat-icon
-        color="primary"
-        class="edit-icon"
-        (click)="openDialog(element)"
-        aria-label="Visualizar"
-        matTooltip="Visualizar"
-      >
-        edit
-      </mat-icon>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns;"
-  ></tr>
-</table>
+  <mat-tab-group (selectedTabChange)="onTabChange($event.tab.textLabel.toLowerCase())">
+    <mat-tab label="Todos"></mat-tab>
+    <mat-tab label="Importados"></mat-tab>
+    <mat-tab label="Montagem"></mat-tab>
+    <mat-tab label="Saída"></mat-tab>
+    <mat-tab label="Recolher"></mat-tab>
+    <mat-tab label="Concluídos"></mat-tab>
+  </mat-tab-group>
+  
+  <!-- Tabela Responsiva -->
+  <div class="table-container">
+    <table mat-table [dataSource]="filteredBudgetList" class="mat-elevation-z8 demo-table">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Código</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="cliente">
+        <th mat-header-cell *matHeaderCellDef>Cliente</th>
+        <td mat-cell *matCellDef="let element" class="client-cell">{{element.cliente}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="vlTotal">
+        <th mat-header-cell *matHeaderCellDef>Valor Total</th>
+        <td mat-cell *matCellDef="let element">{{element.vlTotal | currency}}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="entrega">
+        <th mat-header-cell *matHeaderCellDef>Entrega</th>
+        <td mat-cell *matCellDef="let element">{{ element.dtEntrega | date: 'dd/MM/yyyy HH:mm' }}</td>
+      </ng-container>
+  
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">
+          <span [ngClass]="getStatusClass(element.status)">
+            {{ element.status }}
+          </span>
+        </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon
+            color="primary"
+            class="edit-icon"
+            (click)="openDialog(element)"
+            aria-label="Visualizar"
+            matTooltip="Visualizar"
+          >
+            edit
+          </mat-icon>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>  

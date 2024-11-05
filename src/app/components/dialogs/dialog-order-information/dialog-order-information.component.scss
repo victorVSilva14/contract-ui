@@ -73,6 +73,15 @@ button {
 button:disabled {
     background-color: #ccc;
 }
+
+.cancel-button {
+    background-color: red;
+    color: white;
+}
+  
+.cancel-button:hover {
+    background-color: darkred;
+}
   
 .result-table {
     margin-top: 20px;
