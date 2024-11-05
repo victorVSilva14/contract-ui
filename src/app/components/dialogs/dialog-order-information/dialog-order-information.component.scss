@@ -1,10 +1,34 @@
+:host {
+    display: block;
+    width: 100%;
+    max-width: 600px;  /* Largura máxima do dialog, ajustável conforme necessário */
+    height: 100%;
+    max-height: 90vh;  /* Limita a altura do dialog para não ultrapassar a altura da tela */
+    overflow: auto;  /* Evita que o dialog ultrapasse a tela */
+}
+
+.mat-dialog-container {
+    display: flex;
+    flex-direction: column;  /* Faz o dialog se comportar de forma flexível */
+    width: 100%;  
+    height: 100%;  /* Garante que o dialog ocupe 100% da altura disponível */
+    padding: 0;  /* Remove o padding extra */
+}
+
+.mat-dialog-content {
+    overflow-y: auto;  /* Garante que o conteúdo seja rolável */
+    flex-grow: 1;  /* Permite que o conteúdo expanda */
+    padding: 16px;  /* Padding interno */
+    max-height: calc(100vh - 120px);  /* Limita a altura do conteúdo do dialog */
+}
+
 .form-container {
     padding: 16px;
-    max-width: 600px;
-    margin: auto;
-    background-color: #f4f4f4; /* Cor de fundo leve */
+    width: 100%;  /* Garante que o formulário ocupe toda a largura do dialog */
+    height: 100%;
+    margin: 0 auto;
+    background-color: #f4f4f4;
     color: black;
-    border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
     .main-text {
@@ -12,54 +36,54 @@
         margin-bottom: 10px;
     }
 }
-  
+
 form {
     display: grid;
-    gap: 16px; /* Espaçamento entre os campos */
+    gap: 16px;  /* Espaçamento entre os campos */
 }
-  
+
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dois campos por linha em telas grandes */
+    grid-template-columns: 1fr 1fr;  /* Dois campos por linha */
     gap: 16px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;  /* Um campo por linha em telas pequenas */
+    }
 }
-  
+
 .grid-item {
     display: flex;
     flex-direction: column;
 }
-  
+
 label {
     font-size: 14px;
     color: #333;
 }
-  
+
 input,
 select,
 textarea {
     padding: 8px;
     font-size: 14px;
     background-color: transparent;
-    border: 1px solid #ccc; /* Borda cinza clara */
+    border: 1px solid #ccc; 
     border-radius: 4px;
-    color: #333; /* Texto preto */
+    color: #333;
 }
-  
-input[type="checkbox"] {
-    width: auto;
-}
-  
+
 textarea {
-    resize: vertical;
+    resize: none;
 }
-  
+
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: purple; /* Borda azul para foco */
-    outline: none; /* Remover outline padrão */
+    border-color: purple;
+    outline: none;  /* Remove o outline padrão */
 }
-  
+
 button {
     padding: 12px;
     background-color: #3f51b5;
@@ -68,8 +92,9 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    width: 100%;  /* Faz com que o botão ocupe 100% da largura */
 }
-  
+
 button:disabled {
     background-color: #ccc;
 }
@@ -78,13 +103,36 @@ button:disabled {
     background-color: red;
     color: white;
 }
-  
+
 .cancel-button:hover {
     background-color: darkred;
 }
-  
+
+.form-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
 .result-table {
     margin-top: 20px;
     width: 100%;
     border-collapse: collapse;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  :host {
+    max-width: 100%;  /* Para dispositivos móveis, permite que o dialog ocupe toda a largura */
+  }
+
+  .mat-dialog-content {
+    max-height: calc(100vh - 120px);  /* Ajuste para a altura da tela */
+  }
+
+  button {
+    max-width: 100%;  /* Faz com que o botão ocupe 100% da largura */
+  }
 }

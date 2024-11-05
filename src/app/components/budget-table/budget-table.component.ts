@@ -96,6 +96,8 @@ export class BudgetTableComponent {
   openDialog(order?: Budget): void {
     const dialogRef = this.dialog.open(DialogOrderInformationComponent, {
       data: order,
+      width: '80vw',
+      maxWidth: '600px',
     });
   
     dialogRef.afterClosed().subscribe(result => {

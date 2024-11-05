@@ -1,113 +1,113 @@
 <div class="form-container">
     <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-        <h2 class="main-text">Orçamento</h2>
-        <div class="grid-container">
-            <!-- ID Orçamento -->
-            <div class="grid-item">
-            <label for="idorcamento">ID Orçamento</label>
-            <input
-                type="text"
-                id="idorcamento"
-                formControlName="idorcamento"
-                placeholder="Digite o ID do orçamento"
-                [readonly]="!isEditing"
-            />
-            </div>
-    
-            <!-- Cliente -->
-            <div class="grid-item">
-            <label for="cliente">Cliente</label>
-            <input
-                type="text"
-                id="cliente"
-                formControlName="cliente"
-                placeholder="Digite o nome do cliente"
-                [readonly]="!isEditing"
-            />
-            </div>
-    
-            <!-- Produto -->
-            <div class="grid-item">
-            <label for="produto">Produto</label>
-            <select
-                id="produto"
-                formControlName="produto"
-                [disabled]="!isEditing"
-            >
-                <option *ngFor="let produto of produtos" [value]="produto.id">
-                {{ produto.nome }}
-                </option>
-            </select>
-            </div>
-    
-            <!-- Quantidade -->
-            <div class="grid-item">
-            <label for="quantidade">Quantidade</label>
-            <input
-                type="number"
-                id="quantidade"
-                formControlName="quantidade"
-                placeholder="Digite a quantidade"
-                [readonly]="!isEditing"
-            />
-            </div>
-    
-            <!-- Data de Importação -->
-            <div class="grid-item">
-            <label for="dtImportacao">Data de Importação</label>
-            <input
-                type="date"
-                id="dtImportacao"
-                formControlName="dtImportacao"
-                [disabled]="!isEditing"
-            />
-            </div>
-    
-            <!-- Data de Entrega -->
-            <div class="grid-item">
-            <label for="dtEntrega">Data de Entrega</label>
-            <input
-                type="date"
-                id="dtEntrega"
-                formControlName="dtEntrega"
-                [disabled]="!isEditing"
-            />
-            </div>
-    
-            <!-- Status -->
-            <div class="grid-item">
-            <label for="status">Status</label>
-            <input
-                type="text"
-                id="status"
-                formControlName="status"
-                placeholder="Status do cliente"
-                [readonly]="!isEditing"
-            />
-            </div>
-    
-            <!-- Observação -->
-            <div class="grid-item">
-            <label for="observacao">Observação</label>
-            <textarea
-                id="observacao"
-                formControlName="observacao"
-                placeholder="Observações adicionais"
-                [readonly]="!isEditing"
-            ></textarea>
-            </div>
+      <h2 class="main-text">Orçamento</h2>
+      <div class="grid-container">
+        <!-- ID Orçamento -->
+        <div class="grid-item">
+          <label for="idorcamento">ID Orçamento</label>
+          <input
+            type="text"
+            id="idorcamento"
+            formControlName="idorcamento"
+            placeholder="Digite o ID do orçamento"
+            [readonly]="!isEditing"
+          />
         </div>
-    
-        <!-- Botões de Ação -->
-        <div fxLayout="row" fxLayoutGap="8px" class="form-actions">
-            <button type="submit" [disabled]="!orderForm.valid || !isEditing" class="send-button">
-                Enviar
-            </button>
-            <div fxLayout="row" fxLayoutAlign="start center">
-                <button type="button" (click)="onEdit()" *ngIf="!isEditing">Editar</button>
-                <button type="button" (click)="onCancel()" class="cancel-button" *ngIf="isEditing">Cancelar</button>
-            </div>
+  
+        <!-- Cliente -->
+        <div class="grid-item">
+          <label for="cliente">Cliente</label>
+          <input
+            type="text"
+            id="cliente"
+            formControlName="cliente"
+            placeholder="Digite o nome do cliente"
+            [readonly]="!isEditing"
+          />
         </div>
+  
+        <!-- Produto -->
+        <div class="grid-item">
+          <label for="produto">Produto</label>
+          <select
+            id="produto"
+            formControlName="produto"
+            [disabled]="!isEditing"
+          >
+            <option *ngFor="let produto of produtos" [value]="produto.id">
+              {{ produto.nome }}
+            </option>
+          </select>
+        </div>
+  
+        <!-- Quantidade -->
+        <div class="grid-item">
+          <label for="quantidade">Quantidade</label>
+          <input
+            type="number"
+            id="quantidade"
+            formControlName="quantidade"
+            placeholder="Digite a quantidade"
+            [readonly]="!isEditing"
+          />
+        </div>
+  
+        <!-- Data de Importação -->
+        <div class="grid-item">
+          <label for="dtImportacao">Data de Importação</label>
+          <input
+            type="date"
+            id="dtImportacao"
+            formControlName="dtImportacao"
+            [disabled]="!isEditing"
+          />
+        </div>
+  
+        <!-- Data de Entrega -->
+        <div class="grid-item">
+          <label for="dtEntrega">Data de Entrega</label>
+          <input
+            type="date"
+            id="dtEntrega"
+            formControlName="dtEntrega"
+            [disabled]="!isEditing"
+          />
+        </div>
+  
+        <!-- Status -->
+        <div class="grid-item">
+          <label for="status">Status</label>
+          <input
+            type="text"
+            id="status"
+            formControlName="status"
+            placeholder="Status do cliente"
+            [readonly]="!isEditing"
+          />
+        </div>
+  
+        <!-- Observação -->
+        <div class="grid-item">
+          <label for="observacao">Observação</label>
+          <textarea
+            id="observacao"
+            formControlName="observacao"
+            placeholder="Observações adicionais"
+            [readonly]="!isEditing"
+          ></textarea>
+        </div>
+      </div>
+  
+      <!-- Botões de Ação -->
+      <div class="form-actions">
+        <button type="submit" [disabled]="!orderForm.valid || !isEditing" class="send-button">
+          Enviar
+        </button>
+        <div>
+          <button type="button" (click)="onEdit()" *ngIf="!isEditing">Editar</button>
+          <button type="button" (click)="onCancel()" class="cancel-button" *ngIf="isEditing">Cancelar</button>
+        </div>
+      </div>
     </form>
-</div>
+  </div>
   
