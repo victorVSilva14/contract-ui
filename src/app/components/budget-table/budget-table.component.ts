@@ -47,9 +47,8 @@ const ELEMENT_DATA: Budget[] = [
 })
 export class BudgetTableComponent {
   displayedColumns: string[] = ['id', 'cliente', 'vlTotal', 'entrega', 'status', 'actions'];
-  dataSource = ELEMENT_DATA;
-  filteredData = ELEMENT_DATA;
-  clickedRows = new Set<Budget>();
+  budgetList = ELEMENT_DATA;
+  filteredBudgetList = ELEMENT_DATA;
   activeTab = 'Todos';
   searchTerm: string = '';
 
@@ -61,7 +60,7 @@ export class BudgetTableComponent {
   constructor(private dialog: MatDialog) {}
 
   filterData() {
-    this.filteredData = this.dataSource.filter(element => {
+    this.filteredBudgetList = this.budgetList.filter(element => {
       const matchesType = this.activeTab === 'Todos' || element.type === this.activeTab;
       const matchesSearchTerm = element.cliente.toLowerCase().includes(this.searchTerm.toLowerCase());
       return matchesType && matchesSearchTerm;

@@ -1,0 +1,81 @@
+.form-container {
+    padding: 16px;
+    max-width: 600px;
+    margin: auto;
+    background-color: #f4f4f4; /* Cor de fundo leve */
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    .main-text {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
+  
+form {
+    display: grid;
+    gap: 16px; /* Espaçamento entre os campos */
+}
+  
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dois campos por linha em telas grandes */
+    gap: 16px;
+}
+  
+.grid-item {
+    display: flex;
+    flex-direction: column;
+}
+  
+label {
+    font-size: 14px;
+    color: #333;
+}
+  
+input,
+select,
+textarea {
+    padding: 8px;
+    font-size: 14px;
+    background-color: transparent;
+    border: 1px solid #ccc; /* Borda cinza clara */
+    border-radius: 4px;
+    color: #333; /* Texto preto */
+}
+  
+input[type="checkbox"] {
+    width: auto;
+}
+  
+textarea {
+    resize: vertical;
+}
+  
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: purple; /* Borda azul para foco */
+    outline: none; /* Remover outline padrão */
+}
+  
+button {
+    padding: 12px;
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+  
+button:disabled {
+    background-color: #ccc;
+}
+  
+.result-table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
