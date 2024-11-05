@@ -52,9 +52,7 @@ export class DialogOrderInformationComponent implements OnInit {
   ) {
     this.orderForm = this.fb.group({
       cliente: [{ value: this.data.cliente, disabled: true }],
-      produto: [{ value: null, disabled: true }],
       idorcamento: [{ value: this.data.id, disabled: true }],
-      quantidade: [this.data.quantidade || null, [Validators.required, Validators.min(1)]],
       observacao: [this.data.observacao || ''],
       dtImportacao: [this.data.dtImportacao || null, Validators.required],
       dtEntrega: [this.data.dtEntrega || null, Validators.required],
