@@ -1,8 +1,8 @@
 export interface Budget {
-    id: number;
+    id: number | null; // Permite null
     cliente: string;
-    vlTotal: number;
-    dtEntrega: Date;
+    vlTotal: number | null; // Permite null
+    dtEntrega: Date | null; // Permite null
     status: string;
     type: string; 
 }

@@ -70,6 +70,15 @@ table {
     }    
 }
 
+mat-paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $paginator;
+  color: $light-primary-color;
+  font-weight: 400;
+}
+
 .demo-table {
     width: 100%;
 }
@@ -119,7 +128,7 @@ table {
     table {
       font-size: 13px;
     }
-  
+
     th, td {
       padding: 10px;
     }
