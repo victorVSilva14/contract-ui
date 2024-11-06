@@ -12,12 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface Produto {
-  id: number;
-  nome: string;
-}
-
+import { ProductTableComponent } from '../../product-table/product-table.component';
 @Component({
   selector: 'app-dialog-order-information',
   standalone: true,
@@ -32,18 +27,14 @@ export interface Produto {
     MatNativeDateModule,
     MatTableModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ProductTableComponent
   ],
   templateUrl: './dialog-order-information.component.html',
   styleUrls: ['./dialog-order-information.component.scss']
 })
 export class DialogOrderInformationComponent implements OnInit {
   orderForm: FormGroup;
-  produtos: Produto[] = [
-    { id: 1, nome: 'Produto A' },
-    { id: 2, nome: 'Produto B' },
-    { id: 3, nome: 'Produto C' }
-  ];
   isEditing: boolean = false;  
 
   constructor(

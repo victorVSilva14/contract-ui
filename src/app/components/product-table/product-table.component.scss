@@ -1,0 +1,90 @@
+@import "../../../styles/variables.scss";
+
+.table-container {
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .table-wrapper {
+    display: block;
+    overflow-x: auto;  // Permite rolar horizontalmente em telas pequenas
+    -webkit-overflow-scrolling: touch; // Melhora a rolagem em dispositivos móveis
+  }
+  
+  table {
+    width: 100%;
+    table-layout: fixed; // Garante que as células da tabela se ajustem ao tamanho disponível
+    overflow-x: auto; // Permite rolagem horizontal quando necessário
+    background-color: $light-primary-color; 
+
+    th, td {
+        color: black;
+        text-align: center;
+    }
+
+    mat-icon {
+        &:hover {
+            color: darkviolet;
+        }
+    }   
+  }
+
+mat-paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $paginator;
+    color: $light-primary-color;
+    font-weight: 400;
+}
+  
+  .mat-header-cell, .mat-cell {
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap; // Impede que o texto dentro das células quebre
+  }
+  
+  .mat-header-row {
+    background-color: #f1f1f1; // Cor de fundo para o cabeçalho
+  }
+  
+  .mat-icon {
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .table-wrapper {
+      overflow-x: scroll; // Permite rolar a tabela horizontalmente
+    }
+  
+    table {
+      width: 100%;
+      display: block;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  
+    .mat-cell, .mat-header-cell {
+      font-size: 12px; // Reduz o tamanho da fonte em telas pequenas
+      padding: 8px 4px; // Ajusta o padding em telas menores
+    }
+  
+    .mat-header-cell {
+      font-weight: bold;  // Deixa o texto do cabeçalho mais forte
+    }
+  
+    /* Esconde algumas colunas em telas menores */
+    @media screen and (max-width: 600px) {
+      .mat-column-quantidade, .mat-column-pVenda {
+        display: none;
+      }
+    }
+  
+    @media screen and (max-width: 500px) {
+      .mat-column-quantidade, .mat-column-pVenda, .mat-column-tipoProd {
+        display: none;
+      }
+    }
+}
+  
