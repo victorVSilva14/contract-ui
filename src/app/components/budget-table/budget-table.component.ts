@@ -53,45 +53,41 @@ const ELEMENT_DATA: Budget[] = [
   styleUrls: ['./budget-table.component.scss']
 })
 export class BudgetTableComponent implements AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;  
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   displayedColumns: string[] = ['id', 'cliente', 'vlTotal', 'entrega', 'status', 'actions'];
-  dataSource = new MatTableDataSource<Budget>(ELEMENT_DATA); 
+  dataSource = new MatTableDataSource<Budget>(ELEMENT_DATA);
+  activeTab: string = 'Todos';
 
-  budgetList = ELEMENT_DATA;
-  activeTab = 'Todos';
-  searchTerm: string = '';
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
+  totalItems: number = 14;  // Armazena o total de itens
+  pageSize: number = 5;  // Número de itens por página
+  pageIndex: number = 0;  // Índice da página atual
 
-  constructor(private dialog: MatDialog) {
-    this.filterData();  
-  }
+  constructor(private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;  
+    this.dataSource.paginator = this.paginator;
   }
 
-  filterData() {
-    this.dataSource.data = this.budgetList.filter(element => {
-      const matchesType = this.activeTab === 'Todos' || element.type === this.activeTab;
-      const matchesSearchTerm = element.cliente.toLowerCase().includes(this.searchTerm.toLowerCase());
-      return matchesType && matchesSearchTerm;
-    });
+  loadData(): void {
+  //  this.http.get<any>(`/api/budgets?page=${this.pageIndex + 1}&size=${this.pageSize}`).subscribe(response => {
+  //    this.dataSource.data = response.data;
+   //   this.totalItems = response.totalItems;
+  // });
   }
 
-  onTabChange(tab: string) {
-    this.activeTab = tab;
-    this.filterData();
+  onTabChange(tab: string): void {
+    this.activeTab = tab; 
+    this.loadData();  
   }
 
-  applyFilter(value: string) {
-    this.searchTerm = value;
-    this.filterData();
+  onPageChanged(event: any): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadData();  
   }
 
-  getStatusClass(status: string) {
+  getStatusClass(status: string): string {
     switch (status) {
       case 'Concluído': 
         return 'status-green';
@@ -116,6 +112,12 @@ export class BudgetTableComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe(result => {
+      // Optionally handle the result here
     });
+  }
+
+  // Filtro de dados
+  applyFilter(filterValue: string): void {
+    
   }
 }
