@@ -24,10 +24,22 @@
     }
 
     mat-icon {
-        &:hover {
+        &.edit-icon:hover {
             color: darkviolet;
         }
     }   
+
+    .action-icons {
+      display: flex;
+      gap: 2px; 
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .edit-icon, .delete-icon {
+      cursor: pointer; 
+      font-size: 24px; 
+    }
   }
 
 mat-paginator {

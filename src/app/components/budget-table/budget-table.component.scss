@@ -64,10 +64,22 @@ table {
     }
 
     mat-icon {
-        &:hover {
+        &.edit-icon:hover {
             color: darkviolet;
         }
     }    
+
+    .action-icons {
+      display: flex;
+      gap: 10px;  /* Espaço entre os ícones */
+      align-items: center; /* Alinha verticalmente no centro */
+      justify-content: center;
+    }
+
+    .edit-icon, .delete-icon {
+      cursor: pointer; /* Deixa o cursor como 'pointer' para indicar interatividade */
+      font-size: 24px;  /* Ajuste o tamanho dos ícones */
+    }
 }
 
 mat-paginator {

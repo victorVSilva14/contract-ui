@@ -12,6 +12,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Budget } from '../../models/budget.resource';
 import { DialogOrderInformationComponent } from '../dialogs/dialog-order-information/dialog-order-information.component';
+import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 
 const ELEMENT_DATA: Budget[] = [
   { id: 1, cliente: 'Victor', vlTotal: 1.0079, dtEntrega: new Date(), status: 'Montagem', type: 'client' },
@@ -107,12 +108,31 @@ export class BudgetTableComponent implements AfterViewInit {
   openDialog(order?: Budget): void {
     const dialogRef = this.dialog.open(DialogOrderInformationComponent, {
       data: order,
-      width: '80vw',
-      maxWidth: '600px',
+      width: '90vw',
+      maxWidth: '800px',
     });
   
     dialogRef.afterClosed().subscribe(result => {
       // Optionally handle the result here
+    });
+  }
+
+  onDelete(element: Budget): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: { message: `Tem certeza que deseja excluir o orçamento de ${element.cliente}?` },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Se o usuário confirmou a exclusão, removemos o item
+        const index = this.dataSource.data.indexOf(element);
+        if (index >= 0) {
+          this.dataSource.data.splice(index, 1); // Remove o item da lista
+          this.dataSource._updateChangeSubscription(); // Atualiza a tabela
+          this.totalItems--;  // Atualiza o total de itens
+        }
+      }
     });
   }
 

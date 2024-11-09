@@ -1,0 +1,16 @@
+<div class="confirm-dialog-container">
+    <div class="dialog-header">
+        <mat-icon class="dialog-icon" aria-hidden="true">warning</mat-icon>
+        <h1 class="dialog-title">Confirmação</h1>
+    </div>
+
+    <div class="dialog-content">
+        <p class="dialog-message">{{ data.message }}</p>
+    </div>
+
+    <div class="dialog-actions">
+        <button mat-button class="cancel-btn" (click)="onCancel()">Cancelar</button>
+        <button mat-button color="warn" class="confirm-btn" (click)="onConfirm()">Excluir</button>
+    </div>
+</div>
+  

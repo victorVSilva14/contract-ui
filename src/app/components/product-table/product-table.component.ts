@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 
 const ELEMENT_DATA: ItemsBudget[] = [
   {
@@ -134,7 +135,7 @@ export class ProductTableComponent {
   pageSize: number = 2;  // Número de itens por página
   pageIndex: number = 0;  // Índice da página atual
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -144,6 +145,24 @@ export class ProductTableComponent {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadData();  
+  }
+
+  onDelete(item: ItemsBudget) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Tem certeza que deseja excluir este item?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { 
+        const index = this.dataSource.data.indexOf(item);
+        if (index !== -1) {
+          this.dataSource.data.splice(index, 1);
+          this.totalItems = this.dataSource.data.length;
+          this.dataSource = new MatTableDataSource(this.dataSource.data); 
+          this.dataSource.paginator = this.paginator; 
+        }
+      }
+    });
   }
 
   private loadData() { }
