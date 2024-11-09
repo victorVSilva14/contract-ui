@@ -67,7 +67,7 @@ export class BudgetTableComponent implements AfterViewInit {
     'Montagem': 'Montagem',
     'Saída': 'Saída',
     'Recolher': 'Recolher',
-    'Concluídos': 'Concluído'
+    'Concluído': 'Concluído'
   };
 
   totalItems: number = 14;  // Armazena o total de itens
@@ -89,9 +89,10 @@ export class BudgetTableComponent implements AfterViewInit {
   }
 
   onTabChange(event: any): void {
-    const selectedTabLabel = event.tab.textLabel as keyof typeof this.statusMap; // Garantindo que seja uma chave válida
+    const selectedTabLabel = event.tab.textLabel as keyof typeof this.statusMap;
     const status = this.statusMap[selectedTabLabel];
     this.applyStatusFilter(status);
+    this.selectedIndex = Object.keys(this.statusMap).indexOf(selectedTabLabel as string);
   }
 
   applyStatusFilter(status: string): void {
@@ -132,21 +133,33 @@ export class BudgetTableComponent implements AfterViewInit {
         const indexAtualizado = this.dataSource.data.findIndex(order => order.id === updatedOrder.id);
         
         if (indexAtualizado !== -1) {
-          // Substituir o item da tabela pelo atualizado
+          // Substitui o item da tabela pelo atualizado
           this.dataSource.data = [...this.dataSource.data.slice(0, indexAtualizado), updatedOrder, ...this.dataSource.data.slice(indexAtualizado + 1)];
           
           this.dataSource._updateChangeSubscription();
   
-          if (updatedOrder.status === 'Montagem') {
-            this.selectedIndex = 2;
-            this.activeTab = 'Montagem'; 
-            this.onTabChange({ tab: { textLabel: this.activeTab } }); 
-          }
-
-          console.log('active: ', this.activeTab)
+          // Verifica se houve mudança de status e atualiza a aba
+          this.updateTabBasedOnStatus(updatedOrder.status);
         }
       }
     });
+  }
+
+  updateTabBasedOnStatus(status: string): void {
+    const statusToTabMap: { [key: string]: string } = {
+      'Importado': 'Importados',
+      'Montagem': 'Montagem',
+      'Saída': 'Saída',
+      'Recolher': 'Recolher',
+      'Concluído': 'Concluído',
+    };
+
+    const newTab = statusToTabMap[status] || 'Todos';
+  
+    if (this.activeTab !== newTab || (newTab === this.activeTab && this.activeTab === 'Concluído')) {
+      this.activeTab = newTab;
+      this.onTabChange({ tab: { textLabel: this.activeTab } });
+    }
   }
 
   onDelete(element: Budget): void {

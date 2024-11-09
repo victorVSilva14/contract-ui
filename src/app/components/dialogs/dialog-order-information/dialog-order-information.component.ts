@@ -41,6 +41,9 @@ import { DialogRef } from '@angular/cdk/dialog';
 export class DialogOrderInformationComponent implements OnInit {
   orderForm: FormGroup;
   isEditing: boolean = false;  
+
+  statusSequence: string[] = ['Importado', 'Montagem', 'Saída', 'Recolher', 'Concluído'];
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DialogOrderInformationComponent>,
@@ -64,13 +67,20 @@ export class DialogOrderInformationComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {
+  getNextStatus(currentStatus: string): string {
+    const currentIndex = this.statusSequence.indexOf(currentStatus);
+    if (currentIndex >= 0 && currentIndex < this.statusSequence.length - 1) {
+      return this.statusSequence[currentIndex + 1];
+    }
+    return currentStatus; 
+  }
+
+  onSubmit(): void {
     if (this.orderForm.valid) {
       const { status } = this.orderForm.controls;
 
-      if (status.value === 'Importado') {
-        this.orderForm.get('status')?.setValue('Montagem');
-      }
+      const newStatus = this.getNextStatus(status.value);
+      this.orderForm.get('status')?.setValue(newStatus); 
 
       const formData = this.orderForm.getRawValue();
       this.dialogRef.close(formData);
