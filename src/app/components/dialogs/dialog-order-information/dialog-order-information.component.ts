@@ -13,6 +13,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProductTableComponent } from '../../product-table/product-table.component';
+
+import moment from 'moment';
+
 @Component({
   selector: 'app-dialog-order-information',
   standalone: true,
@@ -36,18 +39,21 @@ import { ProductTableComponent } from '../../product-table/product-table.compone
 export class DialogOrderInformationComponent implements OnInit {
   orderForm: FormGroup;
   isEditing: boolean = false;  
-
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.orderForm = this.fb.group({
-      cliente: [{ value: this.data.cliente, disabled: true }, Validators.required], 
-      idorcamento: [{ value: this.data.id, disabled: true }, Validators.required],
-      observacao: [{ value: this.data.observacao || '', disabled: true }, Validators.maxLength(500)],
-      dtImportacao: [{ value: this.data.dtImportacao || null, disabled: true }, Validators.required], 
-      dtEntrega: [{ value: this.data.dtEntrega || null, disabled: true }, Validators.required], 
-      status: [{ value: this.data.status, disabled: true }, Validators.required] 
+      cliente: [{ value: this.data.cliente, disabled: true }],
+      idorcamento: [{ value: this.data.id, disabled: true }],
+      observacao: [this.data.observacao || ''],
+      dtImportacao: [
+        { value: this.data.dtImportacao ? moment(this.data.dtImportacao).format('YYYY-MM-DD') : null, disabled: true }
+      ],
+      dtEntrega: [
+        { value: this.data.dtEntrega ? moment(this.data.dtEntrega).format('YYYY-MM-DD') : null, disabled: true }
+      ],
+      status: [{ value: this.data.status, disabled: true }]
     });
   }
 
