@@ -84,6 +84,23 @@ textarea:focus {
     outline: none;  /* Remove o outline padrão */
 }
 
+/* Estilo para campos desabilitados */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: #f0f0f0;  /* Cor de fundo cinza */
+  border-color: #dcdcdc;  /* Cor da borda mais clara */
+  color: #999;  /* Cor do texto mais clara */
+  cursor: not-allowed;  /* Cursor para indicar que não é interativo */
+}
+
+input:disabled:focus,
+textarea:disabled:focus,
+select:disabled:focus {
+  border-color: #dcdcdc;  /* Mantém a borda clara mesmo ao focar */
+  outline: none;  /* Remove qualquer outline que possa aparecer ao focar */
+}
+
 button {
     padding: 12px;
     background-color: #3f51b5;

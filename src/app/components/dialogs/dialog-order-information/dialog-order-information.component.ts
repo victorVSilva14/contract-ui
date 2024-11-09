@@ -42,12 +42,12 @@ export class DialogOrderInformationComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.orderForm = this.fb.group({
-      cliente: [{ value: this.data.cliente, disabled: true }],
-      idorcamento: [{ value: this.data.id, disabled: true }],
-      observacao: [this.data.observacao || ''],
-      dtImportacao: [this.data.dtImportacao || null, Validators.required],
-      dtEntrega: [this.data.dtEntrega || null, Validators.required],
-      status: [{ value: this.data.status, disabled: true }]
+      cliente: [{ value: this.data.cliente, disabled: true }, Validators.required], 
+      idorcamento: [{ value: this.data.id, disabled: true }, Validators.required],
+      observacao: [{ value: this.data.observacao || '', disabled: true }, Validators.maxLength(500)],
+      dtImportacao: [{ value: this.data.dtImportacao || null, disabled: true }, Validators.required], 
+      dtEntrega: [{ value: this.data.dtEntrega || null, disabled: true }, Validators.required], 
+      status: [{ value: this.data.status, disabled: true }, Validators.required] 
     });
   }
 
@@ -61,7 +61,8 @@ export class DialogOrderInformationComponent implements OnInit {
 
   onEdit(): void {
     this.isEditing = true;
-    this.orderForm.enable();
+    this.orderForm.get('dtEntrega')?.enable();
+    this.orderForm.get('observacao')?.enable();
   }
 
   onCancel(): void {
