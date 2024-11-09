@@ -1,4 +1,4 @@
-<mat-tab-group (selectedTabChange)="onTabChange($event.tab.textLabel.toLowerCase())">
+<mat-tab-group [(selectedIndex)]="selectedIndex" (selectedTabChange)="onTabChange($event)">
   <mat-tab label="Todos"></mat-tab>
   <mat-tab label="Importados"></mat-tab>
   <mat-tab label="Montagem"></mat-tab>

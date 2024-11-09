@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -20,15 +20,15 @@ const ELEMENT_DATA: Budget[] = [
   { id: 3, cliente: 'Matheus', vlTotal: 6.941, dtEntrega: new Date(), status: 'Concluído', type: 'other' },
   { id: 4, cliente: 'Matheus', vlTotal: 6.951, dtEntrega: new Date(), status: 'Saída', type: 'other' },
   { id: 5, cliente: 'Matheus', vlTotal: 6.991, dtEntrega: new Date(), status: 'Recolher', type: 'other' },
-  { id: 1, cliente: 'Victor', vlTotal: 1.0079, dtEntrega: new Date(), status: 'Montagem', type: 'client' },
-  { id: 2, cliente: 'Adryan', vlTotal: 4.0026, dtEntrega: new Date(), status: 'Importado', type: 'client' },
-  { id: 3, cliente: 'Matheus', vlTotal: 6.941, dtEntrega: new Date(), status: 'Concluído', type: 'other' },
-  { id: 4, cliente: 'Matheus', vlTotal: 6.951, dtEntrega: new Date(), status: 'Saída', type: 'other' },
-  { id: 5, cliente: 'Matheus', vlTotal: 6.991, dtEntrega: new Date(), status: 'Recolher', type: 'other' },
-  { id: 2, cliente: 'Adryan', vlTotal: 4.0026, dtEntrega: new Date(), status: 'Importado', type: 'client' },
-  { id: 3, cliente: 'Matheus', vlTotal: 6.941, dtEntrega: new Date(), status: 'Concluído', type: 'other' },
-  { id: 4, cliente: 'Matheus', vlTotal: 6.951, dtEntrega: new Date(), status: 'Saída', type: 'other' },
-  { id: 5, cliente: 'Matheus', vlTotal: 6.991, dtEntrega: new Date(), status: 'Recolher', type: 'other' }
+  { id: 6, cliente: 'Victor', vlTotal: 1.0079, dtEntrega: new Date(), status: 'Montagem', type: 'client' },
+  { id: 7, cliente: 'Adryan', vlTotal: 4.0026, dtEntrega: new Date(), status: 'Importado', type: 'client' },
+  { id: 8, cliente: 'Matheus', vlTotal: 6.941, dtEntrega: new Date(), status: 'Concluído', type: 'other' },
+  { id: 9, cliente: 'Matheus', vlTotal: 6.951, dtEntrega: new Date(), status: 'Saída', type: 'other' },
+  { id: 10, cliente: 'Matheus', vlTotal: 6.991, dtEntrega: new Date(), status: 'Recolher', type: 'other' },
+  { id: 11, cliente: 'Adryan', vlTotal: 4.0026, dtEntrega: new Date(), status: 'Importado', type: 'client' },
+  { id: 12, cliente: 'Matheus', vlTotal: 6.941, dtEntrega: new Date(), status: 'Concluído', type: 'other' },
+  { id: 13, cliente: 'Matheus', vlTotal: 6.951, dtEntrega: new Date(), status: 'Saída', type: 'other' },
+  { id: 14, cliente: 'Matheus', vlTotal: 6.991, dtEntrega: new Date(), status: 'Recolher', type: 'other' }
 ];
 
 @Component({
@@ -60,11 +60,22 @@ export class BudgetTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Budget>(ELEMENT_DATA);
   activeTab: string = 'Todos';
 
+  selectedIndex: number = 0; 
+  statusMap: { [key: string]: string } = {
+    'Todos': '',
+    'Importados': 'Importado',
+    'Montagem': 'Montagem',
+    'Saída': 'Saída',
+    'Recolher': 'Recolher',
+    'Concluídos': 'Concluído'
+  };
+
   totalItems: number = 14;  // Armazena o total de itens
   pageSize: number = 5;  // Número de itens por página
   pageIndex: number = 0;  // Índice da página atual
+  readonly dialog = inject(MatDialog);
 
-  constructor(private dialog: MatDialog) {}
+  constructor() {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -77,32 +88,35 @@ export class BudgetTableComponent implements AfterViewInit {
   // });
   }
 
-  onTabChange(tab: string): void {
-    this.activeTab = tab; 
-    this.loadData();  
+  onTabChange(event: any): void {
+    const selectedTabLabel = event.tab.textLabel as keyof typeof this.statusMap; // Garantindo que seja uma chave válida
+    const status = this.statusMap[selectedTabLabel];
+    this.applyStatusFilter(status);
+  }
+
+  applyStatusFilter(status: string): void {
+    if (status) {
+      this.dataSource.filter = status.toLowerCase();
+    } else {
+      this.dataSource.filter = ''; // "Todos" exibe todos os orçamentos
+    }
+  }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Montagem': return 'status-yellow';
+      case 'Importado': return 'status-gray';
+      case 'Concluído': return 'status-green';
+      case 'Saída': return 'status-orange';
+      case 'Recolher': return 'status-red';
+      default: return '';
+    }
   }
 
   onPageChanged(event: any): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadData();  
-  }
-
-  getStatusClass(status: string): string {
-    switch (status) {
-      case 'Concluído': 
-        return 'status-green';
-      case 'Importado': 
-        return 'status-gray';
-      case 'Montagem': 
-        return 'status-yellow';
-      case 'Saída': 
-        return 'status-orange';
-      case 'Recolher': 
-        return 'status-red';
-      default:
-        return '';
-    }
   }
 
   openDialog(order?: Budget): void {
@@ -113,7 +127,25 @@ export class BudgetTableComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe(result => {
-      // Optionally handle the result here
+      if (result) {
+        const updatedOrder = result;
+        const indexAtualizado = this.dataSource.data.findIndex(order => order.id === updatedOrder.id);
+        
+        if (indexAtualizado !== -1) {
+          // Substituir o item da tabela pelo atualizado
+          this.dataSource.data = [...this.dataSource.data.slice(0, indexAtualizado), updatedOrder, ...this.dataSource.data.slice(indexAtualizado + 1)];
+          
+          this.dataSource._updateChangeSubscription();
+  
+          if (updatedOrder.status === 'Montagem') {
+            this.selectedIndex = 2;
+            this.activeTab = 'Montagem'; 
+            this.onTabChange({ tab: { textLabel: this.activeTab } }); 
+          }
+
+          console.log('active: ', this.activeTab)
+        }
+      }
     });
   }
 
@@ -125,7 +157,6 @@ export class BudgetTableComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Se o usuário confirmou a exclusão, removemos o item
         const index = this.dataSource.data.indexOf(element);
         if (index >= 0) {
           this.dataSource.data.splice(index, 1); // Remove o item da lista
@@ -134,10 +165,5 @@ export class BudgetTableComponent implements AfterViewInit {
         }
       }
     });
-  }
-
-  // Filtro de dados
-  applyFilter(filterValue: string): void {
-    
   }
 }

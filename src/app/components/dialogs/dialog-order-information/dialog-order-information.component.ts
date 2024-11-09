@@ -11,10 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ProductTableComponent } from '../../product-table/product-table.component';
 
 import moment from 'moment';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-dialog-order-information',
@@ -28,6 +29,7 @@ import moment from 'moment';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     MatTableModule,
     ReactiveFormsModule,
     FlexLayoutModule,
@@ -41,18 +43,21 @@ export class DialogOrderInformationComponent implements OnInit {
   isEditing: boolean = false;  
   constructor(
     private fb: FormBuilder,
+    private dialogRef: MatDialogRef<DialogOrderInformationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.orderForm = this.fb.group({
+      id: [this.data.id],
       cliente: [{ value: this.data.cliente, disabled: true }],
       idorcamento: [{ value: this.data.id, disabled: true }],
-      observacao: [this.data.observacao || ''],
+      observacao: [{ value: this.data.orcamento  || '', disabled: true }],
       dtImportacao: [
         { value: this.data.dtImportacao ? moment(this.data.dtImportacao).format('YYYY-MM-DD') : null, disabled: true }
       ],
       dtEntrega: [
         { value: this.data.dtEntrega ? moment(this.data.dtEntrega).format('YYYY-MM-DD') : null, disabled: true }
       ],
+      vlTotal: [this.data.vlTotal],
       status: [{ value: this.data.status, disabled: true }]
     });
   }
@@ -61,7 +66,14 @@ export class DialogOrderInformationComponent implements OnInit {
 
   onSubmit() {
     if (this.orderForm.valid) {
-      console.log('Formulário enviado:', this.orderForm.value);
+      const { status } = this.orderForm.controls;
+
+      if (status.value === 'Importado') {
+        this.orderForm.get('status')?.setValue('Montagem');
+      }
+
+      const formData = this.orderForm.getRawValue();
+      this.dialogRef.close(formData);
     }
   }
 
