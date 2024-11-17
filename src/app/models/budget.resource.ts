@@ -1,8 +1,12 @@
+import { Client } from "./client.resource";
+
 export interface Budget {
-    id: number | null;
-    cliente: string;
-    vlTotal: number | null;
-    dtEntrega: Date | null;
+    id: number;
+    cliente: Client;
+    dtEntrega: Date;
+    dtOrcamento: Date;
+    dtRetorno: Date;
+    dtSaida: Date;
     status: string;
-    type: string; 
+    vlTotal: number;
 }

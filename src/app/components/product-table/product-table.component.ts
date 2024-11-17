@@ -15,11 +15,13 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 1,
-      cliente: 'Victor',
+      cliente: { id: 1, name: 'Victor' },
       vlTotal: 1000.50,
       dtEntrega: new Date('2024-12-15T14:30:00'),
       status: 'Montagem',
-      type: 'client'
+      dtOrcamento: new Date('2024-10-01'),
+      dtRetorno: new Date('2024-11-01'),    
+      dtSaida: new Date('2024-12-01')       
     },
     produto: {
       codigo: 101,
@@ -33,11 +35,13 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 2,
-      cliente: 'Adryan',
+      cliente: { id: 2, name: 'Adryan' },
       vlTotal: 1500.20,
       dtEntrega: new Date('2024-12-20T10:00:00'),
       status: 'Importado',
-      type: 'client'
+      dtOrcamento: new Date('2024-10-05'),  
+      dtRetorno: new Date('2024-11-05'),    
+      dtSaida: new Date('2024-12-05')       
     },
     produto: {
       codigo: 102,
@@ -51,11 +55,13 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 3,
-      cliente: 'Matheus',
+      cliente: { id: 3, name: 'Matheus' },
       vlTotal: 2000.00,
       dtEntrega: new Date('2024-12-18T16:00:00'),
       status: 'Concluído',
-      type: 'other'
+      dtOrcamento: new Date('2024-10-10'),  
+      dtRetorno: new Date('2024-11-10'),    
+      dtSaida: new Date('2024-12-10')       
     },
     produto: {
       codigo: 103,
@@ -69,11 +75,13 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 4,
-      cliente: 'João',
+      cliente: { id: 4, name: 'João' },
       vlTotal: 750.90,
       dtEntrega: new Date('2024-12-22T09:00:00'),
       status: 'Recolher',
-      type: 'client'
+      dtOrcamento: new Date('2024-10-15'),  
+      dtRetorno: new Date('2024-11-15'),    
+      dtSaida: new Date('2024-12-15')       
     },
     produto: {
       codigo: 104,
@@ -87,11 +95,13 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 5,
-      cliente: 'Lucas',
+      cliente: { id: 5, name: 'Lucas' },
       vlTotal: 1200.45,
       dtEntrega: new Date('2024-12-23T11:30:00'),
       status: 'Saída',
-      type: 'other'
+      dtOrcamento: new Date('2024-10-20'),  
+      dtRetorno: new Date('2024-11-20'),    
+      dtSaida: new Date('2024-12-20')       
     },
     produto: {
       codigo: 105,
