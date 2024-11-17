@@ -16,6 +16,7 @@ import { ProductTableComponent } from '../../product-table/product-table.compone
 
 import moment from 'moment';
 import { DialogRef } from '@angular/cdk/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dialog-order-information',
@@ -26,6 +27,7 @@ import { DialogRef } from '@angular/cdk/dialog';
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
+    MatIconModule,
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
