@@ -1,3 +1,39 @@
+<div class="filters" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start start">
+
+  <!-- Filtro ID -->
+  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="id">Código</label>
+    <input type="number" [(ngModel)]="filter.id" id="id" placeholder="Código do orçamento">
+  </div>
+
+  <!-- Filtro Cliente -->
+  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="cliente">Cliente</label>
+    <input type="text" [(ngModel)]="filter.cliente" id="cliente" placeholder="Pesquise por cliente">
+  </div>
+
+  <!-- Filtro Data Início -->
+  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="data-inicio">Data Início</label>
+    <input type="date" [(ngModel)]="filter.dataInicio" id="data-inicio">
+  </div>
+
+  <!-- Filtro Data Fim -->
+  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="data-fim">Data Fim</label>
+    <input type="date" [(ngModel)]="filter.dataFim" id="data-fim">
+  </div>
+
+  <!-- Botão de Pesquisa -->
+  <div class="search-button" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column" fxLayoutAlign="center center">
+    <div style="height: 22px;"></div>
+    <button (click)="search()">
+      Pesquisar <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+</div>
+
 <mat-tab-group [(selectedIndex)]="selectedIndex" class="custom-tab-group" (selectedTabChange)="onTabChange($event)">
   <mat-tab label="Todos"></mat-tab>
   <mat-tab label="Importado"></mat-tab>

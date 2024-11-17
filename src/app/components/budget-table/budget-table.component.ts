@@ -8,13 +8,15 @@ import { CommonModule, DatePipe, JsonPipe } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Budget } from '../../models/budget.resource';
 import { DialogOrderInformationComponent } from '../dialogs/dialog-order-information/dialog-order-information.component';
 import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 import { BudgetService } from '../../services/budget.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 const ELEMENT_DATA: Budget[] = [
   { 
@@ -168,6 +170,8 @@ const ELEMENT_DATA: Budget[] = [
     MatPaginatorModule,
     MatTabsModule,
     MatIconModule,
+    MatButtonModule,
+    MatNativeDateModule,
     MatFormFieldModule, 
     MatDatepickerModule, 
     MatTooltipModule,
@@ -176,7 +180,8 @@ const ELEMENT_DATA: Budget[] = [
     ReactiveFormsModule, 
     JsonPipe,
     DatePipe,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './budget-table.component.html',
@@ -184,6 +189,13 @@ const ELEMENT_DATA: Budget[] = [
 })
 export class BudgetTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  filter = {
+    id: '',
+    cliente: '',
+    dataInicio: '',
+    dataFim: ''
+  };
 
   displayedColumns: string[] = ['id', 'cliente', 'vlTotal', 'entrega', 'status', 'actions'];
   dataSource = new MatTableDataSource<Budget>(ELEMENT_DATA);
@@ -224,6 +236,19 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  search() {
+    const filteredData = ELEMENT_DATA.filter(budget => {
+      const matchesId = this.filter.id ? budget.id === Number(this.filter.id) : true;
+      const matchesCliente = this.filter.cliente ? budget.cliente.name.toLowerCase().includes(this.filter.cliente.toLowerCase()) : true;
+      const matchesDataInicio = this.filter.dataInicio ? new Date(budget.dtSaida).toLocaleDateString() >= new Date(this.filter.dataInicio).toLocaleDateString() : true;
+      const matchesDataFim = this.filter.dataFim ? new Date(budget.dtSaida).toLocaleDateString() <= new Date(this.filter.dataFim).toLocaleDateString() : true;
+      
+      return matchesId && matchesCliente && matchesDataInicio && matchesDataFim;
+    });
+
+    this.dataSource.data = filteredData;
   }
 
   loadData(): void {
