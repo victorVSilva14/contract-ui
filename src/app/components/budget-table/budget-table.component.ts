@@ -197,7 +197,7 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
     dataFim: ''
   };
 
-  displayedColumns: string[] = ['id', 'cliente', 'vlTotal', 'entrega', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'cliente', 'vlTotal', 'saida', 'entrega', 'status', 'actions'];
   dataSource = new MatTableDataSource<Budget>(ELEMENT_DATA);
   activeTab: string = 'Todos';
 

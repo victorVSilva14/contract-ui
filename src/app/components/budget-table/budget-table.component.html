@@ -87,6 +87,12 @@
       <td mat-cell *matCellDef="let element">{{element.vlTotal | currency}}</td>
     </ng-container>
 
+    <!-- Saida -->
+    <ng-container matColumnDef="saida">
+      <th mat-header-cell *matHeaderCellDef>Saída</th>
+      <td mat-cell *matCellDef="let element">{{ element.dtSaida | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </ng-container>
+
     <!-- Entrega -->
     <ng-container matColumnDef="entrega">
       <th mat-header-cell *matHeaderCellDef>Entrega</th>
