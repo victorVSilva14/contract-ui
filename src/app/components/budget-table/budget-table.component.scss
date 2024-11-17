@@ -6,6 +6,12 @@
     margin: 0 auto; // Centraliza a tabela
 }
 
+::ng-deep .custom-tab-group {
+  --mat-tab-header-inactive-label-text-color: gray;
+  --mat-tab-header-pagination-icon-color: black;
+  --mat-tab-header-inactive-hover-label-text-color: black;
+}
+
 table {
     width: 100%; 
     background-color: $light-primary-color; 
