@@ -20,7 +20,8 @@
           <input
             type="text"
             id="cliente"
-            formControlName="cliente"
+            [disabled]="true"
+            [value]="orderForm.get('cliente')?.value?.name"
             placeholder="Digite o nome do cliente"
             [readonly]="!isEditing"
           />

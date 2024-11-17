@@ -192,11 +192,20 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
   selectedIndex: number = 0; 
   statusMap: { [key: string]: string } = {
     'Todos': '',
-    'Importados': 'Importado',
+    'Importado': 'Importado',
     'Montagem': 'Montagem',
     'Saída': 'Saída',
     'Recolher': 'Recolher',
     'Concluído': 'Concluído'
+  };
+
+  indexToTabMap: { [key: string]: number } = {
+    'Todos': 0,
+    'Importado': 1,
+    'Montagem': 2,
+    'Saída': 3,
+    'Recolher': 4,
+    'Concluído': 5,
   };
 
   totalItems: number = 14;  // Armazena o total de itens
@@ -238,10 +247,20 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
   }
 
   onTabChange(event: any): void {
-    const selectedTabLabel = event.tab.textLabel as keyof typeof this.statusMap;
+    let selectedIndex: number;
+    
+    if (typeof event === 'object' && event.tab.textLabel) {
+      selectedIndex = this.indexToTabMap[event.tab.textLabel] || 0;
+    } else {
+      selectedIndex = event.index;
+    }
+
+    const selectedTabLabel = event.tab.textLabel;
     const status = this.statusMap[selectedTabLabel];
+    this.activeTab = selectedTabLabel;
     this.applyStatusFilter(status);
-    this.selectedIndex = Object.keys(this.statusMap).indexOf(selectedTabLabel as string);
+    this.selectedIndex = selectedIndex;
+    console.log('index: ', this.selectedIndex)
   }
 
   applyStatusFilter(status: string): void {
@@ -296,7 +315,7 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
 
   updateTabBasedOnStatus(status: string): void {
     const statusToTabMap: { [key: string]: string } = {
-      'Importado': 'Importados',
+      'Importado': 'Importado',
       'Montagem': 'Montagem',
       'Saída': 'Saída',
       'Recolher': 'Recolher',
