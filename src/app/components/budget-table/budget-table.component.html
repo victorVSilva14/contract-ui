@@ -12,21 +12,43 @@
     <input type="text" [(ngModel)]="filter.cliente" id="cliente" placeholder="Pesquise por cliente">
   </div>
 
-  <!-- Filtro Data Início -->
-  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
-    <label for="data-inicio">Data Início</label>
-    <input type="date" [(ngModel)]="filter.dataInicio" id="data-inicio">
-  </div>
+  <!-- Filtro Data de Saída (Data Início e Data Fim) -->
+  <div class="filter-item" fxFlex="1 1 34%" fxFlex.md="34%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="data-inicio">Data de Saída</label>
 
-  <!-- Filtro Data Fim -->
-  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
-    <label for="data-fim">Data Fim</label>
-    <input type="date" [(ngModel)]="filter.dataFim" id="data-fim">
+    <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="16px">
+      
+      <!-- Data Início -->
+      <div fxLayout="column"
+        fxFlex="1 1 45%" 
+        fxFlex.md="42%" 
+        fxFlex.sm="100%" 
+        fxFlex.xs="100%" 
+        fxFlex.lg="45%" 
+        fxFlex.xl="45%">
+          <input type="date" [(ngModel)]="filter.dataInicio" id="data-inicio" placeholder="Data Início">
+      </div>
+
+      <div fxLayout="column" fxFlex="none" style="align-self: center;">
+        <span>até</span>
+      </div>
+
+      <!-- Data Fim -->
+      <div fxLayout="column"
+        fxFlex="1 1 45%" 
+        fxFlex.md="42%" 
+        fxFlex.sm="100%" 
+        fxFlex.xs="100%" 
+        fxFlex.lg="45%" 
+        fxFlex.xl="45%">
+          <input type="date" [(ngModel)]="filter.dataFim" id="data-fim" placeholder="Data Fim">
+      </div>
+    </div>
   </div>
 
   <!-- Botão de Pesquisa -->
-  <div class="search-button" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column" fxLayoutAlign="center center">
-    <div style="height: 22px;"></div>
+  <div class="search-button" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column" fxLayoutAlign="start start">
+    <div style="height: 25px;"></div>
     <button (click)="search()">
       Pesquisar <mat-icon>search</mat-icon>
     </button>
