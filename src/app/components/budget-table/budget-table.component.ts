@@ -242,8 +242,8 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
     const filteredData = ELEMENT_DATA.filter(budget => {
       const matchesId = this.filter.id ? budget.id === Number(this.filter.id) : true;
       const matchesCliente = this.filter.cliente ? budget.cliente.name.toLowerCase().includes(this.filter.cliente.toLowerCase()) : true;
-      const matchesDataInicio = this.filter.dataInicio ? new Date(budget.dtOrcamento).toLocaleDateString() >= new Date(this.filter.dataInicio).toLocaleDateString() : true;
-      const matchesDataFim = this.filter.dataFim ? new Date(budget.dtOrcamento).toLocaleDateString() <= new Date(this.filter.dataFim).toLocaleDateString() : true;
+      const matchesDataInicio = this.filter.dataInicio ? new Date(budget.dtSaida).toLocaleDateString() >= new Date(this.filter.dataInicio).toLocaleDateString() : true;
+      const matchesDataFim = this.filter.dataFim ? new Date(budget.dtSaida).toLocaleDateString() <= new Date(this.filter.dataFim).toLocaleDateString() : true;
       
       return matchesId && matchesCliente && matchesDataInicio && matchesDataFim;
     });
