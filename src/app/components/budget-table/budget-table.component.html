@@ -1,3 +1,61 @@
+<div class="filters" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start start">
+
+  <!-- Filtro ID -->
+  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="id">Código</label>
+    <input type="number" [(ngModel)]="filter.id" id="id" placeholder="Código do orçamento">
+  </div>
+
+  <!-- Filtro Cliente -->
+  <div class="filter-item" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="cliente">Cliente</label>
+    <input type="text" [(ngModel)]="filter.cliente" id="cliente" placeholder="Pesquise por cliente">
+  </div>
+
+  <!-- Filtro Data de Saída (Data Início e Data Fim) -->
+  <div class="filter-item" fxFlex="1 1 34%" fxFlex.md="34%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column">
+    <label for="data-inicio">Data de Saída</label>
+
+    <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="7px">
+      
+      <!-- Data Início -->
+      <div fxLayout="column"
+        fxFlex="1 1 45%" 
+        fxFlex.md="42%" 
+        fxFlex.sm="100%" 
+        fxFlex.xs="100%" 
+        fxFlex.lg="45%" 
+        fxFlex.xl="45%">
+          <input type="date" [(ngModel)]="filter.dataInicio" id="data-inicio" placeholder="Data Início">
+      </div>
+
+      <div fxLayout="column" fxFlex="none" style="align-self: center;">
+        <span>até</span>
+      </div>
+
+      <!-- Data Fim -->
+      <div fxLayout="column"
+        fxFlex="1 1 45%" 
+        fxFlex.md="42%" 
+        fxFlex.sm="100%" 
+        fxFlex.xs="100%" 
+        fxFlex.lg="45%" 
+        fxFlex.xl="45%">
+          <input type="date" [(ngModel)]="filter.dataFim" id="data-fim" placeholder="Data Fim">
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão de Pesquisa -->
+  <div class="search-button" fxFlex="1 1 17%" fxFlex.md="17%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayout="column" fxLayoutAlign="start start">
+    <div style="height: 25px;"></div>
+    <button (click)="search()">
+      Pesquisar <mat-icon>search</mat-icon>
+    </button>
+  </div>
+
+</div>
+
 <mat-tab-group [(selectedIndex)]="selectedIndex" class="custom-tab-group" (selectedTabChange)="onTabChange($event)">
   <mat-tab label="Todos"></mat-tab>
   <mat-tab label="Importado"></mat-tab>
@@ -27,6 +85,12 @@
     <ng-container matColumnDef="vlTotal">
       <th mat-header-cell *matHeaderCellDef>Valor Total</th>
       <td mat-cell *matCellDef="let element">{{element.vlTotal | currency}}</td>
+    </ng-container>
+
+    <!-- Saida -->
+    <ng-container matColumnDef="saida">
+      <th mat-header-cell *matHeaderCellDef>Saída</th>
+      <td mat-cell *matCellDef="let element">{{ element.dtSaida | date: 'dd/MM/yyyy HH:mm' }}</td>
     </ng-container>
 
     <!-- Entrega -->
