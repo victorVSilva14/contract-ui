@@ -62,6 +62,10 @@ export class DialogOrderInformationComponent implements OnInit {
       dtEntrega: [
         { value: this.data.dtEntrega ? moment(this.data.dtEntrega).format('YYYY-MM-DD') : null, disabled: true }
       ],
+
+      dtSaida: [
+        { value: this.data.dtSaida ? moment(this.data.dtSaida).format('YYYY-MM-DD') : null, disabled: true }
+      ],
       vlTotal: [this.data.vlTotal],
       status: [{ value: this.data.status, disabled: true }]
     });
@@ -91,7 +95,7 @@ export class DialogOrderInformationComponent implements OnInit {
 
   onEdit(): void {
     this.isEditing = true;
-    this.orderForm.get('dtEntrega')?.enable();
+    if (this.data.status != 'Concluído') this.orderForm.get('dtEntrega')?.enable();
     this.orderForm.get('observacao')?.enable();
   }
 

@@ -187,7 +187,7 @@ mat-paginator {
       min-width: 80px; /* Reduz a largura mínima das células */
     }
   
-    .mat-column-id, .mat-column-cliente, .mat-column-vlTotal, .mat-column-entrega, .mat-column-status, .mat-column-actions {
+    .mat-column-id, .mat-column-cliente, .mat-column-vlTotal, .mat-column-entrega, .mat-column-saida, .mat-column-status, .mat-column-actions {
       display: block; /* Faz as colunas ficarem empilhadas */
       width: 100%; /* Coloca as colunas uma abaixo da outra */
     }
@@ -211,7 +211,7 @@ mat-paginator {
       padding: 10px;
     }
   
-    .mat-column-id, .mat-column-cliente, .mat-column-vlTotal, .mat-column-entrega, .mat-column-status, .mat-column-actions {
+    .mat-column-id, .mat-column-cliente, .mat-column-vlTotal, .mat-column-entrega, .mat-column-saida, .mat-column-status, .mat-column-actions {
       display: inline-block;
       width: 16%; /* Distribui as colunas em tela maior que mobile */
     }
