@@ -102,6 +102,20 @@ button:hover {
 
 button:disabled {
     background-color: #ccc;  /* Cor quando o botão estiver desabilitado */
+    cursor: not-allowed;
+}
+
+.input-container input.ng-invalid.ng-touched {
+    border-color: red; /* Aplica borda vermelha para campos inválidos */
+}
+  
+.error-message {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
 }
 
 /* Responsividade */

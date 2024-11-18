@@ -17,11 +17,19 @@
       <input
         id="email"
         type="email"
-        placeholder="Digite o email"
+        placeholder="Digite o email do destinatário"
         [(ngModel)]="email"
+        name="email"
+        #emailInput="ngModel"
+        required
+        email
       />
     </div>
     
     <button class="send-button" (click)="onEnviar()">Enviar</button>
   </mat-dialog-actions>
+  <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+    <div *ngIf="emailInput.errors?.['required']">O campo de email é obrigatório.</div>
+    <div *ngIf="emailInput.errors?.['email']">Por favor, insira um email válido.</div>
+  </div>
 </div>
