@@ -84,7 +84,7 @@
         </div>
 
         <!-- Botão de Imprimir -->
-        <button *ngIf="data.status === 'Concluído'" (click)="openReportDialog()" type="button" class="print-button">
+        <button *ngIf="data.status === 'Concluído'" (click)="gerarRelatorio()" type="button" class="print-button">
           <mat-icon fxLayoutAlign="center center">print</mat-icon> Exportar
         </button>
       </div>

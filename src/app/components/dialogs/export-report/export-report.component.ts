@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CommonModule } from '@angular/common';
+import { JasperReportService } from '../../../services/jasper-report.service';
 
 @Component({
   selector: 'app-export-report',
@@ -24,12 +25,13 @@ import { CommonModule } from '@angular/common';
 export class ExportReportComponent {
   pdfSrc: string = "";  // A URL ou o conteúdo base64 do PDF
   email: string = "";
-
+  numOrcamento: number = 2;
+  
   constructor(
-    public dialogRef: MatDialogRef<ExportReportComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<ExportReportComponent>,
+    private jasperReportService: JasperReportService
   ) {
-    // Inicializa o PDF com uma URL ou conteúdo base64, vindo dos dados do componente pai
     this.pdfSrc = data?.pdfSrc || '';
   }
 

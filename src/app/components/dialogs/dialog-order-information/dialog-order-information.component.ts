@@ -8,7 +8,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -17,6 +17,7 @@ import { ProductTableComponent } from '../../product-table/product-table.compone
 import moment from 'moment';
 import { MatIconModule } from '@angular/material/icon';
 import { ExportReportComponent } from '../export-report/export-report.component';
+import { JasperReportService } from '../../../services/jasper-report.service';
 
 @Component({
   selector: 'app-dialog-order-information',
@@ -45,13 +46,14 @@ export class DialogOrderInformationComponent implements OnInit {
   orderForm: FormGroup;
   isEditing: boolean = false;  
 
-  pdfUrl = '../../../../assets/pdf/teste.pdf';
+  pdfSrc: string = '';
 
   statusSequence: string[] = ['Importado', 'Montagem', 'Saída', 'Recolher', 'Concluído'];
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DialogOrderInformationComponent>,
+    private jasperReportService: JasperReportService,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -111,7 +113,25 @@ export class DialogOrderInformationComponent implements OnInit {
   openReportDialog(): void {
     this.dialog.open(ExportReportComponent, {
       width: '800px',
-      data: { pdfSrc: this.pdfUrl }
+      data: { pdfSrc: this.pdfSrc }
     });
+  }
+  
+  gerarRelatorio() {
+    const numOrcamento = this.data.id;
+    if (numOrcamento) {
+      this.jasperReportService.gerarRelatorio(numOrcamento).subscribe(
+        (pdfData) => {
+          const pdfBlob = pdfData;
+          this.pdfSrc = URL.createObjectURL(pdfBlob);
+          this.openReportDialog();
+        },
+        (error) => {
+          console.error('Erro ao gerar relatório:', error);
+        }
+      );
+    } else {
+      alert('Informe um número de orçamento válido!');
+    }
   }
 }
