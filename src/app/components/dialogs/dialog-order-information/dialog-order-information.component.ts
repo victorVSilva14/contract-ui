@@ -11,12 +11,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { ProductTableComponent } from '../../product-table/product-table.component';
 
 import moment from 'moment';
-import { DialogRef } from '@angular/cdk/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { ExportReportComponent } from '../export-report/export-report.component';
 
 @Component({
   selector: 'app-dialog-order-information',
@@ -35,7 +35,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    ProductTableComponent
+    ProductTableComponent,
+    ExportReportComponent
   ],
   templateUrl: './dialog-order-information.component.html',
   styleUrls: ['./dialog-order-information.component.scss']
@@ -44,11 +45,14 @@ export class DialogOrderInformationComponent implements OnInit {
   orderForm: FormGroup;
   isEditing: boolean = false;  
 
+  pdfUrl = '../../../../assets/pdf/teste.pdf';
+
   statusSequence: string[] = ['Importado', 'Montagem', 'Saída', 'Recolher', 'Concluído'];
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DialogOrderInformationComponent>,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.orderForm = this.fb.group({
@@ -102,5 +106,12 @@ export class DialogOrderInformationComponent implements OnInit {
   onCancel(): void {
     this.isEditing = false;
     this.orderForm.disable();
+  }
+
+  openReportDialog(): void {
+    this.dialog.open(ExportReportComponent, {
+      width: '800px',
+      data: { pdfSrc: this.pdfUrl }
+    });
   }
 }

@@ -125,6 +125,14 @@ button:disabled {
     background-color: darkred;
 }
 
+.btn-blue {
+    background-color: blue;
+}
+
+.btn-blue:hover {
+    background-color: darkblue;
+}
+
 .form-actions {
     display: flex;
     flex-direction: row;

@@ -75,16 +75,16 @@
   
       <!-- Botões de Ação -->
       <div class="form-actions">
-        <button type="submit" [disabled]="!orderForm.valid || !isEditing" class="send-button">
+        <button type="submit" [disabled]="!orderForm.valid || !isEditing" class="btn-blue">
           Enviar
         </button>
         <div>
-          <button type="button" (click)="onEdit()" *ngIf="!isEditing">Editar</button>
+          <button type="button" (click)="onEdit()" class="btn-blue" *ngIf="!isEditing">Editar</button>
           <button type="button" (click)="onCancel()" class="cancel-button" *ngIf="isEditing">Cancelar</button>
         </div>
 
         <!-- Botão de Imprimir -->
-        <button *ngIf="data.status === 'Concluído'" type="button" class="print-button">
+        <button *ngIf="data.status === 'Concluído'" (click)="openReportDialog()" type="button" class="print-button">
           <mat-icon fxLayoutAlign="center center">print</mat-icon> Exportar
         </button>
       </div>
