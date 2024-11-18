@@ -16,6 +16,7 @@ import { ProductTableComponent } from '../../product-table/product-table.compone
 
 import moment from 'moment';
 import { DialogRef } from '@angular/cdk/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dialog-order-information',
@@ -26,6 +27,7 @@ import { DialogRef } from '@angular/cdk/dialog';
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
+    MatIconModule,
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -60,6 +62,10 @@ export class DialogOrderInformationComponent implements OnInit {
       dtEntrega: [
         { value: this.data.dtEntrega ? moment(this.data.dtEntrega).format('YYYY-MM-DD') : null, disabled: true }
       ],
+
+      dtSaida: [
+        { value: this.data.dtSaida ? moment(this.data.dtSaida).format('YYYY-MM-DD') : null, disabled: true }
+      ],
       vlTotal: [this.data.vlTotal],
       status: [{ value: this.data.status, disabled: true }]
     });
@@ -89,7 +95,7 @@ export class DialogOrderInformationComponent implements OnInit {
 
   onEdit(): void {
     this.isEditing = true;
-    this.orderForm.get('dtEntrega')?.enable();
+    if (this.data.status != 'Concluído') this.orderForm.get('dtEntrega')?.enable();
     this.orderForm.get('observacao')?.enable();
   }
 

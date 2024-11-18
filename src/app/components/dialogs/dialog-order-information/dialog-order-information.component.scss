@@ -140,6 +140,32 @@ button:disabled {
     border-collapse: collapse;
 }
 
+/* Estilo para o botão de imprimir */
+.print-button {
+    padding: 6px 10px 6px 6px;
+    background-color: #4caf50;  /* Cor verde para o botão de imprimir */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;  /* Espaço entre o ícone e o texto */
+}
+
+.print-button mat-icon {
+    font-size: 18px;  /* Tamanho do ícone */
+}
+
+.print-button:hover {
+    background-color: #388e3c;  /* Cor mais escura ao passar o mouse */
+}
+
+.print-button:disabled {
+    background-color: #ccc;  /* Cor quando o botão estiver desabilitado */
+}
+
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
   :host {
