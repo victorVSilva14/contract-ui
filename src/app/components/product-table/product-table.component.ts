@@ -15,7 +15,11 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 1,
-      cliente: { id: 1, name: 'Victor' },
+      cliente: { 
+        id: 1, 
+        name: 'Victor', 
+        email: 'victor@example.com' 
+      },
       vlTotal: 1000.50,
       dtEntrega: new Date('2024-12-15T14:30:00'),
       status: 'Montagem',
@@ -35,7 +39,11 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 2,
-      cliente: { id: 2, name: 'Adryan' },
+      cliente: { 
+        id: 2, 
+        name: 'Adryan', 
+        email: 'adryan@example.com' 
+      },
       vlTotal: 1500.20,
       dtEntrega: new Date('2024-12-20T10:00:00'),
       status: 'Importado',
@@ -55,7 +63,11 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 3,
-      cliente: { id: 3, name: 'Matheus' },
+      cliente: { 
+        id: 3, 
+        name: 'Matheus', 
+        email: 'matheus@example.com' 
+      },
       vlTotal: 2000.00,
       dtEntrega: new Date('2024-12-18T16:00:00'),
       status: 'Concluído',
@@ -75,7 +87,11 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 4,
-      cliente: { id: 4, name: 'João' },
+      cliente: { 
+        id: 4, 
+        name: 'João', 
+        email: 'joao@example.com' 
+      },
       vlTotal: 750.90,
       dtEntrega: new Date('2024-12-22T09:00:00'),
       status: 'Recolher',
@@ -95,7 +111,11 @@ const ELEMENT_DATA: ItemsBudget[] = [
   {
     Orcamento: {
       id: 5,
-      cliente: { id: 5, name: 'Lucas' },
+      cliente: { 
+        id: 5, 
+        name: 'Lucas', 
+        email: 'lucas@example.com' 
+      },
       vlTotal: 1200.45,
       dtEntrega: new Date('2024-12-23T11:30:00'),
       status: 'Saída',

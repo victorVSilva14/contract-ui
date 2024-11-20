@@ -21,7 +21,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 const ELEMENT_DATA: Budget[] = [
   { 
     id: 1, 
-    cliente: { id: 1, name: 'Victor' },
+    cliente: { id: 1, name: 'Victor', email: 'victor@example.com' },
     dtEntrega: new Date('2024-11-01'), 
     dtOrcamento: new Date('2024-10-20'), 
     dtRetorno: new Date('2024-11-05'), 
@@ -31,7 +31,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 2, 
-    cliente: { id: 2, name: 'Adryan' },
+    cliente: { id: 2, name: 'Adryan', email: 'adryan@example.com' },
     dtEntrega: new Date('2024-11-02'), 
     dtOrcamento: new Date('2024-10-22'), 
     dtRetorno: new Date('2024-11-06'), 
@@ -41,7 +41,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 3, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-03'), 
     dtOrcamento: new Date('2024-10-23'), 
     dtRetorno: new Date('2024-11-07'), 
@@ -49,9 +49,10 @@ const ELEMENT_DATA: Budget[] = [
     status: 'Concluído', 
     vlTotal: 6941 
   },
+  // Continue atualizando os objetos restantes
   { 
     id: 4, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-04'), 
     dtOrcamento: new Date('2024-10-24'), 
     dtRetorno: new Date('2024-11-08'), 
@@ -61,7 +62,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 5, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-05'), 
     dtOrcamento: new Date('2024-10-25'), 
     dtRetorno: new Date('2024-11-09'), 
@@ -71,7 +72,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 6, 
-    cliente: { id: 1, name: 'Victor' },
+    cliente: { id: 1, name: 'Victor', email: 'victor@example.com' },
     dtEntrega: new Date('2024-11-06'), 
     dtOrcamento: new Date('2024-10-26'), 
     dtRetorno: new Date('2024-11-10'), 
@@ -81,7 +82,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 7, 
-    cliente: { id: 2, name: 'Adryan' },
+    cliente: { id: 2, name: 'Adryan', email: 'adryan@example.com' },
     dtEntrega: new Date('2024-11-07'), 
     dtOrcamento: new Date('2024-10-27'), 
     dtRetorno: new Date('2024-11-11'), 
@@ -91,7 +92,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 8, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-08'), 
     dtOrcamento: new Date('2024-10-28'), 
     dtRetorno: new Date('2024-11-12'), 
@@ -101,7 +102,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 9, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-09'), 
     dtOrcamento: new Date('2024-10-29'), 
     dtRetorno: new Date('2024-11-13'), 
@@ -111,7 +112,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 10, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-10'), 
     dtOrcamento: new Date('2024-10-30'), 
     dtRetorno: new Date('2024-11-14'), 
@@ -121,7 +122,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 11, 
-    cliente: { id: 2, name: 'Adryan' },
+    cliente: { id: 2, name: 'Adryan', email: 'adryan@example.com' },
     dtEntrega: new Date('2024-11-11'), 
     dtOrcamento: new Date('2024-10-31'), 
     dtRetorno: new Date('2024-11-15'), 
@@ -131,7 +132,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 12, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-12'), 
     dtOrcamento: new Date('2024-11-01'), 
     dtRetorno: new Date('2024-11-16'), 
@@ -141,7 +142,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 13, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-13'), 
     dtOrcamento: new Date('2024-11-02'), 
     dtRetorno: new Date('2024-11-17'), 
@@ -151,7 +152,7 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 14, 
-    cliente: { id: 3, name: 'Matheus' },
+    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
     dtEntrega: new Date('2024-11-14'), 
     dtOrcamento: new Date('2024-11-03'), 
     dtRetorno: new Date('2024-11-18'), 
