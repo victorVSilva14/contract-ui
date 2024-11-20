@@ -1,12 +1,10 @@
 import { Component, Inject } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CommonModule } from '@angular/common';
-import { JasperReportService } from '../../../services/jasper-report.service';
 
 @Component({
   selector: 'app-export-report',
@@ -29,10 +27,10 @@ export class ExportReportComponent {
   
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<ExportReportComponent>,
-    private jasperReportService: JasperReportService
+    private dialogRef: MatDialogRef<ExportReportComponent>
   ) {
     this.pdfSrc = data?.pdfSrc || '';
+    this.email = data?.email || '';
   }
 
   onClose(): void {

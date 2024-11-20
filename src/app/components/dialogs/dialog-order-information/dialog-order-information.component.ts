@@ -113,7 +113,7 @@ export class DialogOrderInformationComponent implements OnInit {
   openReportDialog(): void {
     this.dialog.open(ExportReportComponent, {
       width: '800px',
-      data: { pdfSrc: this.pdfSrc }
+      data: { pdfSrc: this.pdfSrc, email: this.data.cliente.email }
     });
   }
   
