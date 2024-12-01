@@ -17,6 +17,8 @@ import { BudgetService } from '../../services/budget.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ComponentType, ToastrService } from 'ngx-toastr';
+import { DialogAddressComponent } from '../dialogs/dialog-address/dialog-address.component';
 
 const ELEMENT_DATA: Budget[] = [
   { 
@@ -31,25 +33,24 @@ const ELEMENT_DATA: Budget[] = [
   },
   { 
     id: 2, 
-    cliente: { id: 2, name: 'Adryan', email: 'adryan@example.com' },
+    cliente: { id: 2, name: 'Adryan', email: 'c ' },
     dtEntrega: new Date('2024-11-02'), 
     dtOrcamento: new Date('2024-10-22'), 
     dtRetorno: new Date('2024-11-06'), 
     dtSaida: new Date('2024-11-11'), 
-    status: 'Importado', 
+    status: 'Concluído', 
     vlTotal: 4002.6 
   },
   { 
     id: 3, 
-    cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
+    cliente: { id: 3, name: 'Adryan', email: 'agsprojetos7@gmail.com' },
     dtEntrega: new Date('2024-11-03'), 
     dtOrcamento: new Date('2024-10-23'), 
     dtRetorno: new Date('2024-11-07'), 
     dtSaida: new Date('2024-11-12'), 
-    status: 'Concluído', 
+    status: 'Importado', 
     vlTotal: 6941 
   },
-  // Continue atualizando os objetos restantes
   { 
     id: 4, 
     cliente: { id: 3, name: 'Matheus', email: 'matheus@example.com' },
@@ -57,7 +58,7 @@ const ELEMENT_DATA: Budget[] = [
     dtOrcamento: new Date('2024-10-24'), 
     dtRetorno: new Date('2024-11-08'), 
     dtSaida: new Date('2024-11-13'), 
-    status: 'Saída', 
+    status: 'Validar', 
     vlTotal: 6951 
   },
   { 
@@ -206,6 +207,7 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
   statusMap: { [key: string]: string } = {
     'Todos': '',
     'Importado': 'Importado',
+    'Validar': 'Validar',
     'Montagem': 'Montagem',
     'Saída': 'Saída',
     'Recolher': 'Recolher',
@@ -215,10 +217,11 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
   indexToTabMap: { [key: string]: number } = {
     'Todos': 0,
     'Importado': 1,
-    'Montagem': 2,
-    'Saída': 3,
-    'Recolher': 4,
-    'Concluído': 5,
+    'Validar': 2,
+    'Montagem': 3,
+    'Saída': 4,
+    'Recolher': 5,
+    'Concluído': 6,
   };
 
   totalItems: number = 14;  // Armazena o total de itens
@@ -229,7 +232,10 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private budgetService: BudgetService) {}
+  constructor(
+    private budgetService: BudgetService,
+    private toastr: ToastrService
+  ) {}
   
   ngOnInit(): void {
     this.loadBudgets();
@@ -301,6 +307,7 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
     switch (status) {
       case 'Montagem': return 'status-yellow';
       case 'Importado': return 'status-gray';
+      case 'Validar': return 'status-blue';
       case 'Concluído': return 'status-green';
       case 'Saída': return 'status-orange';
       case 'Recolher': return 'status-red';
@@ -315,7 +322,9 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
   }
 
   openDialog(order?: Budget): void {
-    const dialogRef = this.dialog.open(DialogOrderInformationComponent, {
+    const dialogToOpen = this.getDialogComponent(order);
+      
+    const dialogRef = this.dialog.open(dialogToOpen, {
       data: order,
       width: '90vw',
       maxWidth: '800px',
@@ -337,6 +346,13 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  private getDialogComponent(order?: Budget): ComponentType<any> {
+    if (order?.status?.trim().toLowerCase() === 'validar') {
+      return DialogAddressComponent;
+    }
+    return DialogOrderInformationComponent;
   }
 
   updateTabBasedOnStatus(status: string): void {
@@ -369,6 +385,7 @@ export class BudgetTableComponent implements OnInit, AfterViewInit {
           this.dataSource.data.splice(index, 1); // Remove o item da lista
           this.dataSource._updateChangeSubscription(); // Atualiza a tabela
           this.totalItems--;  // Atualiza o total de itens
+          this.toastr.success('Orçamento excluído com sucesso!', 'Sucesso!');
         }
       }
     });

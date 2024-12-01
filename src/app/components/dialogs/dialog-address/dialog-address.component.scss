@@ -63,7 +63,6 @@ label {
 }
 
 input,
-select,
 textarea {
     padding: 8px;
     font-size: 14px;
@@ -78,7 +77,6 @@ textarea {
 }
 
 input:focus,
-select:focus,
 textarea:focus {
     border-color: purple;
     outline: none;  /* Remove o outline padrão */
@@ -86,8 +84,7 @@ textarea:focus {
 
 /* Estilo para campos desabilitados */
 input:disabled,
-textarea:disabled,
-select:disabled {
+textarea:disabled {
   background-color: #f0f0f0;  /* Cor de fundo cinza */
   border-color: #dcdcdc;  /* Cor da borda mais clara */
   color: #999;  /* Cor do texto mais clara */
@@ -95,8 +92,7 @@ select:disabled {
 }
 
 input:disabled:focus,
-textarea:disabled:focus,
-select:disabled:focus {
+textarea:disabled:focus {
   border-color: #dcdcdc;  /* Mantém a borda clara mesmo ao focar */
   outline: none;  /* Remove qualquer outline que possa aparecer ao focar */
 }
@@ -146,36 +142,9 @@ button:disabled {
     margin-bottom: 10px;
 }
 
-.result-table {
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-/* Estilo para o botão de imprimir */
-.print-button {
-    padding: 6px 10px 6px 6px;
-    background-color: #4caf50;  /* Cor verde para o botão de imprimir */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;  /* Espaço entre o ícone e o texto */
-}
-
-.print-button mat-icon {
-    font-size: 18px;  /* Tamanho do ícone */
-}
-
-.print-button:hover {
-    background-color: #388e3c;  /* Cor mais escura ao passar o mouse */
-}
-
-.print-button:disabled {
-    background-color: #ccc;  /* Cor quando o botão estiver desabilitado */
+.required {
+    color: red;
+    font-weight: bold;
 }
 
 /* Responsividade para telas menores */

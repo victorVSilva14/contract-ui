@@ -5,6 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { JasperReportService } from '../../../services/jasper-report.service';
 
 @Component({
   selector: 'app-export-report',
@@ -21,12 +23,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './export-report.component.scss'
 })
 export class ExportReportComponent {
-  pdfSrc: string = "";  // A URL ou o conteúdo base64 do PDF
+  pdfSrc: string = ""; 
   email: string = "";
   numOrcamento: number = 2;
   
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private jasperReportService: JasperReportService,
+    private toastr: ToastrService,
     private dialogRef: MatDialogRef<ExportReportComponent>
   ) {
     this.pdfSrc = data?.pdfSrc || '';
@@ -37,10 +41,21 @@ export class ExportReportComponent {
     this.dialogRef.close();
   }
 
+  enviarRelatorioParaEmail(): void {
+    if (!this.numOrcamento || !this.email) {
+      this.toastr.warning('Preencha todos os campos antes de enviar o relatório.', 'Atenção!');
+      return;
+    }
+
+    this.jasperReportService.enviarRelatorioParaEmail(this.numOrcamento, this.email).subscribe((success) => {
+      this.toastr.success('Relatório enviado para o e-mail com sucesso!', 'Sucesso!');
+      this.dialogRef.close();
+    });
+  }
+
   onEnviar(): void {
     if (this.email) {
-      console.log(`Enviando relatório para ${this.email}`);
-      this.dialogRef.close();
+      this.enviarRelatorioParaEmail();
     } else {
       console.log("Por favor, insira um e-mail válido.");
     }
