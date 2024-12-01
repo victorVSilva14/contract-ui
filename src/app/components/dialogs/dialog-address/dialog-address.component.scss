@@ -97,6 +97,26 @@ textarea:disabled:focus {
   outline: none;  /* Remove qualquer outline que possa aparecer ao focar */
 }
 
+.error-text {
+    color: red; /* Cor da mensagem de erro */
+    font-size: 0.875rem; /* Tamanho da fonte */
+    margin-top: 4px; /* Margem superior para dar espaçamento da borda do input */
+    display: block; /* Exibe a mensagem como um bloco */
+    font-weight: 500; /* Torna o texto um pouco mais grosso */
+}
+  
+  /* Estilo para o campo de input quando ele tem um erro */
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+    border-color: red; /* Mudando a cor da borda do campo com erro */
+}
+  
+  /* Estilo para inputs com erro quando em edição */
+input[readonly="false"]:invalid,
+textarea[readonly="false"]:invalid {
+    border-color: red; /* Adiciona uma borda vermelha nos campos inválidos */
+}
+
 button {
     padding: 12px;
     background-color: #3f51b5;
