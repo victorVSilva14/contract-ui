@@ -11,12 +11,15 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { ProductTableComponent } from '../../product-table/product-table.component';
 
 import { MatIconModule } from '@angular/material/icon';
 import { ExportReportComponent } from '../export-report/export-report.component';
+import { CepService } from '../../../services/cep.service';
+
 import { ToastrService } from 'ngx-toastr';
+import { DirectivesModule } from '../../../directives/directives.module';
 
 @Component({
   selector: 'app-dialog-address',
@@ -35,6 +38,7 @@ import { ToastrService } from 'ngx-toastr';
     MatTableModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    DirectivesModule,
     ProductTableComponent,
     ExportReportComponent
   ],
@@ -42,22 +46,32 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './dialog-address.component.scss'
 })
 export class DialogAddressComponent {
-  orderForm: FormGroup;
+  addressForm: FormGroup;
   isEditing: boolean = false;  
 
   pdfSrc: string = '';
+
+  initialData: any;
 
   statusSequence: string[] = ['Importado', 'Validar', 'Montagem', 'Saída', 'Recolher', 'Concluído'];
 
   constructor(
     private fb: FormBuilder,
-    private dialog: MatDialog,
+    private toastr: ToastrService,
+    private cepService: CepService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.orderForm = this.fb.group({
+    this.initialData = { ...this.data };
+    this.addressForm = this.fb.group({
       id: [this.data.id],
-      cep: [{ value: null, disabled: true }, Validators.required],
-      rua: [{ value: null, disabled: true }, Validators.required],
+      cep: [
+        { value: null, disabled: true },
+        [Validators.required, Validators.pattern(/^\d{8}$/), Validators.maxLength(8), Validators.minLength(8)] // Validação de CEP (8 dígitos)
+      ],
+      estado: [{ value: null, disabled: true }, Validators.required],
+      logradouro: [{ value: null, disabled: true }, Validators.required],
+      cidade: [{ value: null, disabled: true }, Validators.required],
+      bairro: [{ value: null, disabled: true }, Validators.required],
       numero: [{ value: null, disabled: true }, Validators.required],
       complemento: [{ value: null, disabled: true }],
       pontoReferencia: [{ value: null, disabled: true }],
@@ -76,14 +90,14 @@ export class DialogAddressComponent {
   }
 
   onSubmit(): void {
-    if (this.orderForm.valid) {
+    if (this.addressForm.valid) {
       this.openAccessInformationDialog();
-      // const { status } = this.orderForm.controls;
+      // const { status } = this.addressForm.controls;
 
       //const newStatus = this.getNextStatus(status.value);
-      //this.orderForm.get('status')?.setValue(newStatus); 
+      //this.addressForm.get('status')?.setValue(newStatus); 
 
-      //const formData = this.orderForm.getRawValue();
+      //const formData = this.addressForm.getRawValue();
       //this.dialogRef.close(formData);
 
       //this.toastr.success('Endereço validado com sucesso!', 'Sucesso!');
@@ -92,19 +106,57 @@ export class DialogAddressComponent {
 
   onEdit(): void {
     this.isEditing = true;
-    if (this.data.status != 'Concluído') this.orderForm.enable();
-    this.orderForm.get('observacao')?.enable();
+    if (this.data.status != 'Concluído') this.addressForm.enable();
+    this.addressForm.get('observacao')?.enable();
   }
 
   onCancel(): void {
     this.isEditing = false;
-    this.orderForm.disable();
+    this.addressForm.disable();
+    this.addressForm.reset(this.initialData);
   }
 
   openAccessInformationDialog(): void {
-    this.dialog.open(ExportReportComponent, {
-      width: '800px',
-      data: { pdfSrc: this.pdfSrc, email: this.data.cliente.email }
+    // this.dialog.open(DialogAccessInformationComponent, {
+    //  width: '800px',
+    //  data: this.addressForm 
+    //});
+  }
+
+
+  onCepBlur(): void {
+    const cep = this.addressForm.get('cep')?.value;
+    if (cep && cep.length === 8) {
+      this.cepService.getAddressByCep(cep).subscribe(
+        data => {
+          if (data.erro) {
+            this.toastr.warning('CEP não encontrado!', 'Atenção!');
+            this.resetAddressFields();
+          } else {
+            console.log('data: ', data)
+            this.addressForm.patchValue({
+              estado: data.estado,
+              logradouro: data.logradouro,
+              cidade: data.localidade,
+              bairro: data.bairro,
+              complemento: data.complemento,
+            });
+          }
+        },
+        error => {
+          this.toastr.error('Erro ao buscar CEP!', 'Erro!');
+          this.resetAddressFields();
+        }
+      );
+    }
+  }
+
+  resetAddressFields(): void {
+    this.addressForm.patchValue({
+      rua: '',
+      complemento: '',
+      numero: '',
+      pontoReferencia: ''
     });
   }
 }
