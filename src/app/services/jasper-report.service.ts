@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -21,4 +21,17 @@ export class JasperReportService {
       }),
     });
   }
+
+  enviarRelatorioParaEmail(numOrcamento: number, emailDestino: string): Observable<any> {
+    const requestPayload = {
+      numOrcamento: numOrcamento,
+      emailDestino: emailDestino
+    };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<any>(`${this.apiUrl}/sendReport`, requestPayload, { headers });
+  }
+
 }

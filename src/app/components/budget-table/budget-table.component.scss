@@ -89,12 +89,22 @@ table {
         color: green; 
         font-weight: bold;
     }
+
     .status-gray {
         display: inline-block;
         padding: 4px 8px;
         border-radius: 12px;
         background-color: rgba(128, 128, 128, 0.2);
         color: gray; 
+        font-weight: bold;
+    }
+
+    .status-blue {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        background-color: rgba(0, 0, 255, 0.2);
+        color: rgb(78, 78, 206); 
         font-weight: bold;
     }
     
